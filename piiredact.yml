@@ -1,0 +1,49 @@
+elasticsearchScheme: http  # SINCE HTTP, NO NEED FOR ./build_keystore NOR KEYSTORE.JKS FILE
+elasticsearchHost: localhost # BECAUSE THERE'S NO PLACE LIKE HOME
+elasticsearchPort: 30920  # PORT USED FOR ES
+elasticsearchUser: elastic  # NEEDS TO BE CREATED
+elasticsearchPassword: changeme  # NEEDS TO BE CREATED
+workloads:  # EVERYTHING BELOW FOR PII-REDACT DATA
+  - workloadName: piiredact
+    workloadThreads: 1
+    workloadSleep: 1000
+    indexName: piiredact
+    fields:
+      - name: customer_name
+        type: full_name
+      - name: address
+        type: full_address
+      - name: cc_no
+        type: credit_card_number
+      - name: social_security_number
+        type: ssn
+      - name: email_address
+        type: email
+      - name: area_code
+        type: int
+        range: 101,999
+      - name: prefix
+        type: int
+        range: 101,888
+      - name: suffix
+        type: int
+        range: 1000,9999
+      - name: Call-Center
+        type: random_string_from_list
+        custom_list: Buffalo,Wilmington,Millsboro,Erie   # ADD MORE LOCATION SHOULD YOU LIKE HERE
+      - name: Agent-ID
+        type: int
+        range: 1000,9999
+      - name: Agent-First-Name
+        type: first_name
+      - name: Agent-Last-Name
+        type: last_name
+      - name: Agent-Years-With-Bank
+        type: int
+        range: 0,20
+      - name: Reference-Number-1
+        type: int
+        range: 10000,99999
+      - name: Reference-Number-2
+        type: int
+        range: 100,999
