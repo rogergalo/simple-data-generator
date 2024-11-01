@@ -1,7 +1,7 @@
 elasticsearchScheme: http  # SINCE HTTP, NO NEED FOR ./build_keystore NOR KEYSTORE.JKS FILE
 elasticsearchHost: localhost # BECAUSE THERE'S NO PLACE LIKE HOME
 elasticsearchPort: 30920  # PORT USED FOR ES
-elasticsearchUser: elastic  # NEEDS TO BE CREATED
+elasticsearchUser: sdg  # NEEDS TO BE CREATED
 elasticsearchPassword: changeme  # NEEDS TO BE CREATED
 workloads:  # EVERYTHING BELOW FOR PII-REDACT DATA
   - workloadName: piiredact
