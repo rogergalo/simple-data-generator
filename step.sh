@@ -13,3 +13,5 @@ curl -X PUT "http://localhost:30920/_enrich/policy/user-agents" -H "Content-Type
 EOF
 
 curl -X POST "http://localhost:30920/_enrich/policy/user-agents/_execute" -u "sdg:changeme"
+
+echo "Installation completed successfully."
