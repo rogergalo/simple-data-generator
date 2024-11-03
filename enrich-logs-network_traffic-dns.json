@@ -1,0 +1,199 @@
+{
+  "processors": [
+    {
+      "rename": {
+        "field": "dnsoptudpsize",
+        "target_field": "dns.opt.udp_size",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "dnsquestionregistereddomain",
+        "target_field": "dns.question.registered_domain",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "dnsquestiontype",
+        "target_field": "dns.question.type",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "dnsanswertype",
+        "target_field": "dns.answer.type",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "clientbytes",
+        "target_field": "destination.bytes",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "serverbytes",
+        "target_field": "source.bytes",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "eventduration",
+        "target_field": "event.duration",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "mlisdgamaliciousprediction",
+        "target_field": "ml_is_dga.malicious_prediction",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "dns.question.registered_domain",
+        "value": "avsvmcloud.com",
+        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'",
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "network.protocol",
+        "value": "dns",
+        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'",
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "dns.question.type",
+        "value": "PTR",
+        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'",
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "dns.question.type",
+        "value": "PTR",
+        "if": "ctx?.dns?.answer?.type == 'PTR'",
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "dns.op_code",
+        "value": "QUERY",
+        "if": "ctx?.dns?.question?.type == 'A' || ctx?.dns?.question?.type == 'AAAA' ",
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "dns.question.class",
+        "value": "IN",
+        "if": "ctx?.dns?.question?.type == 'A' || ctx?.dns?.question?.type == 'AAAA' ",
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "dns.response_code",
+        "value": "NOERROR",
+        "if": "ctx?.dns?.question?.type == 'PTR' || ctx?.dns?.question?.type == 'AAAA' || ctx?.dns?.question?.type == 'A'",
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "dns.response_code",
+        "value": "NXDOMAIN",
+        "if": "ctx?.dns?.question?.type == 'TXT' || ctx?.dns?.question?.type == 'MX'",
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "dns.question.name",
+        "ignore_failure": true,
+        "copy_from": "dns.question.registered_domain"
+      }
+    },
+    {
+      "enrich": {
+        "field": "ripcodes",
+        "policy_name": "remote-ips",
+        "target_field": "rips",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "rips.rip1",
+        "target_field": "rip1",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "destination.ip",
+        "value": "{{rip1}}.{{rip2}}.{{rip3}}.{{rip4}}",
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "source.ip",
+        "value": "{{2rip1}}.{{2rip2}}.{{2rip3}}.{{2rip4}}",
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "source.ip",
+        "value": "10.49.110.17",
+        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'",
+        "ignore_failure": true
+      }
+    },
+    {
+      "geoip": {
+        "field": "destination.ip",
+        "target_field": "destination.geo",
+        "ignore_failure": true
+      }
+    },
+    {
+      "pipeline": {
+        "name": "logs-network_traffic-cleanup",
+        "ignore_missing_pipeline": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "event.ingested",
+        "ignore_failure": true,
+        "copy_from": "@timestamp"
+      }
+    }
+  ]
+}
