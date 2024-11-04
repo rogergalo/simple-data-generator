@@ -1,4 +1,23 @@
 #!/bin/bash 
+sudo apt update -y
+sudo apt install cowsay -y
+sudo apt install cmatrix -y
+
+# The line to add to ~/.bashrc
+line_to_add='export PATH=$PATH:/usr/games'
+
+# Check if the line already exists in .bashrc to avoid duplicates
+if ! grep -Fxq "$line_to_add" ~/.bashrc; then
+    # Append the line to the bottom of ~/.bashrc
+    echo "$line_to_add" >> ~/.bashrc
+    echo "Line added to ~/.bashrc"
+else
+    echo "Line already exists in ~/.bashrc"
+fi
+
+# Reload .bashrc to apply changes
+source ~/.bashrc
+
 # Add enrich-user_agent stuff:
 curl -X POST "http://localhost:30920/enrich-user_agents/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-user_agents.ndjson
 # Create user-agents enrich policy
@@ -53,8 +72,8 @@ center_row=$(( rows / 2 ))
 tput cup $center_row $center_col
 echo "$message" | cowsay
 
-# Wait for 10 seconds with the message displayed
-sleep 10
+# Wait for 15 seconds with the message displayed
+sleep 15
 
 # Kill cmatrix process
 kill $MATRIX_PID
