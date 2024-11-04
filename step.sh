@@ -136,6 +136,176 @@ curl -X PUT "http://localhost:30920/_index_template/enrich-windows.sysmon_operat
 }
 EOF
 
+curl -X PUT "http://localhost:30920/_index_template/logs-email" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "default_pipeline": "enrich-email",
+        "number_of_shards": "1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "event": {
+          "type": "object",
+          "properties": {
+            "reason": {
+              "type": "keyword"
+            },
+            "kind": {
+              "type": "keyword"
+            },
+            "module": {
+              "type": "keyword"
+            },
+            "action": {
+              "type": "keyword"
+            },
+            "category": {
+              "type": "keyword"
+            },
+            "dataset": {
+              "type": "keyword"
+            }
+          }
+        },
+        "email": {
+          "type": "object",
+          "properties": {
+            "cc": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "attachments": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "type": "object",
+                  "properties": {
+                    "extension": {
+                      "type": "keyword"
+                    },
+                    "size": {
+                      "type": "long"
+                    },
+                    "mime_type": {
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "type": "keyword"
+                    },
+                    "hash": {
+                      "type": "object",
+                      "properties": {
+                        "sha1": {
+                          "type": "keyword"
+                        },
+                        "sha256": {
+                          "type": "keyword"
+                        },
+                        "md5": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "bcc": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "content_type": {
+              "type": "keyword"
+            },
+            "reply_to": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "sender": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "subject": {
+              "type": "keyword"
+            },
+            "from": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "to": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "direction": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "logs-email*"
+  ],
+  "composed_of": [
+    "logs-network_traffic.dns@package"
+  ],
+  "allow_auto_create": true
+}
+EOF
+
+curl -X PUT "http://localhost:30920/_index_template/enrich-dns" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "default_pipeline": "enrich-logs-network_traffic",
+        "number_of_shards": "1",
+        "number_of_replicas": "0"
+      }
+    }
+  },
+  "index_patterns": [
+    "logs-network_traffic.dns*"
+  ],
+  "composed_of": [
+    "ecs@mappings",
+    "logs-network_traffic.dns@package"
+  ],
+  "allow_auto_create": true
+}
+EOF
+
+curl -X POST "http://localhost:30920/enrich-nginxv2/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-nginxv2.ndjson
+
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-nginx" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-nginx.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/nginx-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/nginx-cleanup.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/timestamp-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/timestamp-cleanup.json
@@ -150,41 +320,37 @@ clear
 # Run cmatrix in the background
 cmatrix -b -u 5 &
 
-# Capture the process ID of cmatrix
+# Get the process ID of cmatrix to stop it later
 MATRIX_PID=$!
 
-# Wait a moment to allow cmatrix to start
+# Wait for 2 seconds to let cmatrix start
 sleep 2
 
-# Hide the cursor
+# Hide cursor
 tput civis
-
-# Define the message and create ASCII art using figlet or toilet
-message="You took the red pill, now we will see how far the rabbit hole goes."
-ascii_art=$(echo "$message" | figlet -c -w $(tput cols))
 
 # Get terminal dimensions
 rows=$(tput lines)
 cols=$(tput cols)
 
-# Calculate the position to start displaying the ASCII art at 75% of screen height
-art_lines=$(echo "$ascii_art" | wc -l)
-start_row=$(( (rows - art_lines) / 2 ))
+# Center the message
+message="Loading, please stand by."
+message_length=${#message}
+center_col=$(( (cols - message_length) / 2 ))
+center_row=$(( rows / 2 ))
 
-# Display the ASCII art message in the center
-tput cup $start_row 0
-echo "$ascii_art"
+# Print the message in the center
+tput cup $center_row $center_col
+echo "$message" | cowsay
 
-# Wait 10 seconds
+# Wait for 10 seconds with the message displayed
 sleep 10
 
-# Stop cmatrix
+# Kill cmatrix process
 kill $MATRIX_PID
 
-# Show the cursor again
+# Show cursor again and clear screen
 tput cnorm
-
-# Clear the screen
 clear
 
 
