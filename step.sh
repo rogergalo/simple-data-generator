@@ -371,3 +371,9 @@ clear
 
 
 echo "You took the red pill, now we will see how far the rabbit hole goes."
+echo 
+echo
+echo "Starting data ingestion, press CTRL + C to unplug from the Matrix."
+echo 
+echo
+#java -jar /root/simple-data-generator/build/libs/simple-data-generator-all-1.0-SNAPSHOT.jar /root/simple-data-generator/secops.yml
