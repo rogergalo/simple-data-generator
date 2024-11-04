@@ -116,6 +116,7 @@ curl -X PUT "http://localhost:30920/_index_template/enrich-windows.sysmon_operat
         "number_of_replicas": "0"
       }
     },
+ "mappings": {
  "properties": {
       "message": {
         "type": "text"
