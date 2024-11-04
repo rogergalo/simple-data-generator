@@ -33,6 +33,109 @@ EOF
 
 curl -X POST "http://localhost:30920/_enrich/policy/user-agents/_execute" -u "sdg:changeme"
 
+curl -X PUT "http://localhost:30920/_index_template/enrich-nginxv2" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": "1",
+        "number_of_replicas": "0"
+      }
+    },
+  "properties": {
+      "code": {
+        "type": "long"
+      },
+      "event": {
+        "properties": {
+          "category": {
+            "type": "keyword"
+          },
+          "kind": {
+            "type": "keyword"
+          },
+          "outcome": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "http": {
+        "properties": {
+          "request": {
+            "properties": {
+              "method": {
+                "type": "keyword"
+              }
+            }
+          },
+          "response": {
+            "properties": {
+              "status_code": {
+                "type": "long"
+              }
+            }
+          },
+          "version": {
+            "type": "keyword"
+          }
+        }
+      },
+      "log": {
+        "properties": {
+          "file": {
+            "properties": {
+              "path": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "url": {
+        "properties": {
+          "original": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": ["enrich-nginxv2*"]
+}
+EOF
+
+curl -X PUT "http://localhost:30920/_index_template/enrich-windows.sysmon_operational" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": "1",
+        "number_of_replicas": "0"
+      }
+    },
+ "properties": {
+      "message": {
+        "type": "text"
+      },
+      "wincode": {
+        "type": "long"
+      },
+      "winlog": {
+        "properties": {
+          "event_id": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": ["enrich-windows.sysmon_operational*"]
+}
+EOF
+
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-nginx" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-nginx.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/nginx-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/nginx-cleanup.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/timestamp-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/timestamp-cleanup.json
