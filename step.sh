@@ -18,9 +18,7 @@ fi
 # Reload .bashrc to apply changes
 source ~/.bashrc
 
-# Add enrich-user_agent stuff:
-curl -X POST "http://localhost:30920/enrich-user_agents/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-user_agents.ndjson
-curl -X POST "http://localhost:30920/enrich-windows.sysmon_operational/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-windows.sysmon_operational.ndjson
+
 # Create user-agents enrich policy
 curl -X PUT "http://localhost:30920/_enrich/policy/user-agents" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
@@ -306,6 +304,9 @@ curl -X PUT "http://localhost:30920/_index_template/enrich-dns" -H "Content-Type
 }
 EOF
 
+# Add enrich-user_agent stuff:
+curl -X POST "http://localhost:30920/enrich-user_agents/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-user_agents.ndjson
+curl -X POST "http://localhost:30920/enrich-windows.sysmon_operational/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-windows.sysmon_operational.ndjson
 curl -X POST "http://localhost:30920/enrich-nginxv2/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-nginxv2.ndjson
 
 curl -X PUT "http://localhost:30920/_enrich/policy/enrich-nginx" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
@@ -376,4 +377,4 @@ echo
 echo "Starting data ingestion, press CTRL + C to unplug from the Matrix."
 echo 
 echo
-#java -jar /root/simple-data-generator/build/libs/simple-data-generator-all-1.0-SNAPSHOT.jar /root/simple-data-generator/secops.yml
+java -jar /root/simple-data-generator/build/libs/simple-data-generator-1.0.0-SNAPSHOT.jar /root/simple-data-generator/secops.yml
