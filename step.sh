@@ -41,6 +41,7 @@ curl -X PUT "http://localhost:30920/_index_template/enrich-nginxv2" -H "Content-
         "number_of_replicas": "0"
       }
     },
+ "mappings": {    
   "properties": {
       "code": {
         "type": "long"
@@ -100,7 +101,7 @@ curl -X PUT "http://localhost:30920/_index_template/enrich-nginxv2" -H "Content-
           }
         }
       }
-    }
+    }}
   },
   "index_patterns": ["enrich-nginxv2*"]
 }
@@ -130,7 +131,7 @@ curl -X PUT "http://localhost:30920/_index_template/enrich-windows.sysmon_operat
           }
         }
       }
-    }
+    }}
   },
   "index_patterns": ["enrich-windows.sysmon_operational*"]
 }
