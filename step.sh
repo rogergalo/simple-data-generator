@@ -41,48 +41,50 @@ curl -X PUT "http://localhost:30920/_ingest/pipeline/email-filter-rules" -H "Con
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-logs-network_traffic-dns" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-logs-network_traffic-dns.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/logs-network_traffic-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/logs-network_traffic-cleanup.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-logs-network_traffic" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-logs-network_traffic.json
-#!/bin/bash
-
 # Clear the screen
 clear
 
 # Run cmatrix in the background
 cmatrix -b -u 5 &
 
-# Get the process ID of cmatrix to stop it later
+# Capture the process ID of cmatrix
 MATRIX_PID=$!
 
-# Wait for 2 seconds to let cmatrix start
+# Wait a moment to allow cmatrix to start
 sleep 2
 
-# Hide cursor
+# Hide the cursor
 tput civis
+
+# Define the message and create ASCII art using figlet or toilet
+message="You took the red pill, now we will see how far the rabbit hole goes."
+ascii_art=$(echo "$message" | figlet -c -w $(tput cols))
 
 # Get terminal dimensions
 rows=$(tput lines)
 cols=$(tput cols)
 
-# Center the message
-message="YOU HAVE BEEN HACKED! Just kidding, loading data now."
-message_length=${#message}
-center_col=$(( (cols - message_length) / 2 ))
-center_row=$(( rows / 2 ))
+# Calculate the position to start displaying the ASCII art at 75% of screen height
+art_lines=$(echo "$ascii_art" | wc -l)
+start_row=$(( (rows - art_lines) / 2 ))
 
-# Print the message in the center
-tput cup $center_row $center_col
-echo "$message" | cowsay
+# Display the ASCII art message in the center
+tput cup $start_row 0
+echo "$ascii_art"
 
-# Wait for 15 seconds with the message displayed
-sleep 15
+# Wait 10 seconds
+sleep 10
 
-# Kill cmatrix process
+# Stop cmatrix
 kill $MATRIX_PID
 
-# Show cursor again and clear screen
+# Show the cursor again
 tput cnorm
+
+# Clear the screen
 clear
 
 
 
 
-echo "Installation completed successfully."
+echo "You took the red pill, now we will see how far the rabbit hole goes."
