@@ -306,6 +306,18 @@ EOF
 
 curl -X POST "http://localhost:30920/enrich-nginxv2/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-nginxv2.ndjson
 
+curl -X PUT "http://localhost:30920/_enrich/policy/enrich-nginx" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "match": {
+    "indices": "enrich-nginxv2",
+    "match_field": "code",
+    "enrich_fields": ["event.category", "event.kind", "event.outcome", "event.type", "http.request.method", "http.response.status_code", "http.version", "log.file.path", "url.original"]
+  }
+}
+EOF
+
+curl -X POST "http://localhost:30920/_enrich/policy/enrich-nginx/_execute" -u "sdg:changeme"
+
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-nginx" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-nginx.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/nginx-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/nginx-cleanup.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/timestamp-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/timestamp-cleanup.json
