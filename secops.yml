@@ -1,7 +1,7 @@
 elasticsearchScheme: http
 elasticsearchHost: localhost
 elasticsearchPort: 30920
-elasticsearchUser: elastic
+elasticsearchUser: sdg
 elasticsearchPassword: changeme
 workloads:
   - workloadName: nginx-access
