@@ -20,7 +20,7 @@ source ~/.bashrc
 
 
 # Create user-agents enrich policy
-curl -X PUT "$ELASTICSEARCH_URL/_enrich/policy/user-agents" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+curl -X PUT "http://localhost:30920/_enrich/policy/user-agents" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
   "match": {
     "indices": "enrich-user_agents",
@@ -30,9 +30,9 @@ curl -X PUT "$ELASTICSEARCH_URL/_enrich/policy/user-agents" -H "Content-Type: ap
 }
 EOF
 
-curl -X POST "$ELASTICSEARCH_URL/_enrich/policy/user-agents/_execute" -u "sdg:changeme"
+curl -X POST "http://localhost:30920/_enrich/policy/user-agents/_execute" -u "sdg:changeme"
 
-curl -X PUT "$ELASTICSEARCH_URL/_index_template/enrich-nginxv2" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+curl -X PUT "http://localhost:30920/_index_template/enrich-nginxv2" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
   "template": {
     "settings": {
@@ -107,7 +107,7 @@ curl -X PUT "$ELASTICSEARCH_URL/_index_template/enrich-nginxv2" -H "Content-Type
 }
 EOF
 
-curl -X PUT "$ELASTICSEARCH_URL/_index_template/enrich-windows.sysmon_operational" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+curl -X PUT "http://localhost:30920/_index_template/enrich-windows.sysmon_operational" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
   "template": {
     "settings": {
@@ -137,7 +137,7 @@ curl -X PUT "$ELASTICSEARCH_URL/_index_template/enrich-windows.sysmon_operationa
 }
 EOF
 
-curl -X PUT "$ELASTICSEARCH_URL/_index_template/logs-email" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+curl -X PUT "http://localhost:30920/_index_template/logs-email" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
   "template": {
     "settings": {
@@ -283,7 +283,7 @@ curl -X PUT "$ELASTICSEARCH_URL/_index_template/logs-email" -H "Content-Type: ap
 }
 EOF
 
-curl -X PUT "$ELASTICSEARCH_URL/_index_template/enrich-dns" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+curl -X PUT "http://localhost:30920/_index_template/enrich-dns" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
   "template": {
     "settings": {
@@ -306,11 +306,11 @@ curl -X PUT "$ELASTICSEARCH_URL/_index_template/enrich-dns" -H "Content-Type: ap
 EOF
 
 # Add enrich-user_agent stuff:
-curl -X POST "$ELASTICSEARCH_URL/enrich-user_agents/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-user_agents.ndjson
-curl -X POST "$ELASTICSEARCH_URL/enrich-windows.sysmon_operational/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-windows.sysmon_operational.ndjson
-curl -X POST "$ELASTICSEARCH_URL/enrich-nginxv2/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-nginxv2.ndjson
+curl -X POST "http://localhost:30920/enrich-user_agents/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-user_agents.ndjson
+curl -X POST "http://localhost:30920/enrich-windows.sysmon_operational/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-windows.sysmon_operational.ndjson
+curl -X POST "http://localhost:30920/enrich-nginxv2/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-nginxv2.ndjson
 
-curl -X PUT "$ELASTICSEARCH_URL/_enrich/policy/enrich-nginx" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+curl -X PUT "http://localhost:30920/_enrich/policy/enrich-nginx" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
   "match": {
     "indices": "enrich-nginxv2",
@@ -320,16 +320,16 @@ curl -X PUT "$ELASTICSEARCH_URL/_enrich/policy/enrich-nginx" -H "Content-Type: a
 }
 EOF
 
-curl -X POST "$ELASTICSEARCH_URL/_enrich/policy/enrich-nginx/_execute" -u "sdg:changeme"
+curl -X POST "http://localhost:30920/_enrich/policy/enrich-nginx/_execute" -u "sdg:changeme"
 
-curl -X PUT "$ELASTICSEARCH_URL/_ingest/pipeline/enrich-nginx" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-nginx.json
-curl -X PUT "$ELASTICSEARCH_URL/_ingest/pipeline/nginx-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/nginx-cleanup.json
-curl -X PUT "$ELASTICSEARCH_URL/_ingest/pipeline/timestamp-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/timestamp-cleanup.json
-curl -X PUT "$ELASTICSEARCH_URL/_ingest/pipeline/enrich-email" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-email.json
-curl -X PUT "$ELASTICSEARCH_URL/_ingest/pipeline/email-filter-rules" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/email-filter-rules.json
-curl -X PUT "$ELASTICSEARCH_URL/_ingest/pipeline/enrich-logs-network_traffic-dns" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-logs-network_traffic-dns.json
-curl -X PUT "$ELASTICSEARCH_URL/_ingest/pipeline/logs-network_traffic-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/logs-network_traffic-cleanup.json
-curl -X PUT "$ELASTICSEARCH_URL/_ingest/pipeline/enrich-logs-network_traffic" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-logs-network_traffic.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-nginx" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-nginx.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/nginx-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/nginx-cleanup.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/timestamp-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/timestamp-cleanup.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-email" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-email.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/email-filter-rules" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/email-filter-rules.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-logs-network_traffic-dns" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-logs-network_traffic-dns.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/logs-network_traffic-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/logs-network_traffic-cleanup.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-logs-network_traffic" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-logs-network_traffic.json
 # Clear the screen
 clear
 
