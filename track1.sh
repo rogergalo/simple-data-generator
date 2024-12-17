@@ -8076,5 +8076,5 @@ echo
 echo "Starting data ingestion, press CTRL + C to unplug from the Matrix."
 echo 
 echo
-gradle clean; gradle build fatJar
+/root/simple-data-generator/gradle clean; /root/simple-data-generator/gradle build fatJar
 java -jar /root/simple-data-generator/build/libs/simple-data-generator-1.0.0-SNAPSHOT.jar /root/simple-data-generator/secops-windows.yml
