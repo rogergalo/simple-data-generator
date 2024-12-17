@@ -75,7 +75,7 @@ curl -X POST "http://localhost:30920/_enrich/policy/enrich-windows.sysmon_operat
 curl -X PUT "http://localhost:30920/_ingest/pipeline/logs-windows.sysmon_operational" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/logs-windows.sysmon_operational.json
 
 # Add winlogbeat index template
-curl -X PUT "http://localhost:30920//_index_template/winlogbeat-8.17" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF' 
+curl -X PUT "http://localhost:30920/_index_template/winlogbeat-8.17" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF' 
 {
   "priority": 150,
   "template": {
@@ -7850,5 +7850,4 @@ echo
 echo "Starting data ingestion, press CTRL + C to unplug from the Matrix."
 echo 
 echo
-/root/simple-data-generator/gradle clean; /root/simple-data-generator/gradle build fatJar
 java -jar /root/simple-data-generator/build/libs/simple-data-generator-1.0.0-SNAPSHOT.jar /root/simple-data-generator/secops-windows.yml
