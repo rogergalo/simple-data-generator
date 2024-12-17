@@ -91,8 +91,6 @@ curl -X PUT "http://localhost:30920/_index_template/winlogbeat-8.17" -H "Content
         },
         "refresh_interval": "5s",
         "number_of_shards": "1",
-		"number_of_replicas": "0",
-		"default_pipeline": "logs-windows.sysmon_operational",
         "max_docvalue_fields_search": "200",
         "query": {
           "default_field": [
@@ -425,6 +423,7 @@ curl -X PUT "http://localhost:30920/_index_template/winlogbeat-8.17" -H "Content
             "fields.*"
           ]
         },
+        "default_pipeline": "logs-windows.sysmon_operational",
         "analysis": {
           "analyzer": {
             "winlogbeat_powershell_script_analyzer": {
@@ -433,7 +432,7 @@ curl -X PUT "http://localhost:30920/_index_template/winlogbeat-8.17" -H "Content
             }
           }
         },
-        "mode": "standard"
+        "number_of_replicas": "0"
       }
     },
     "mappings": {
@@ -7791,14 +7790,11 @@ curl -X PUT "http://localhost:30920/_index_template/winlogbeat-8.17" -H "Content
     }
   },
   "index_patterns": [
-    "winlogbeat-8.17"
+    "winlogbeat-8.17*"
   ],
-  "data_stream": {
-    "hidden": false,
-    "allow_custom_routing": false
-  },
   "composed_of": [],
-  "ignore_missing_component_templates": []
+  "ignore_missing_component_templates": [],
+  "allow_auto_create": true
 }
 EOF
 
@@ -7850,4 +7846,5 @@ echo
 echo "Starting data ingestion, press CTRL + C to unplug from the Matrix."
 echo 
 echo
+cd simple-data-generator && gradle clean; gradle build fatJar
 java -jar /root/simple-data-generator/build/libs/simple-data-generator-1.0.0-SNAPSHOT.jar /root/simple-data-generator/secops-windows.yml
