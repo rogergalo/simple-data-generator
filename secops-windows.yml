@@ -5,7 +5,7 @@ elasticsearchUser: sdg
 elasticsearchPassword: changeme
 workloads:
   - workloadName: windows-system-security
-    workloadThreads: 4
+    workloadThreads: 1
     workloadSleep: 10
     indexName: winlogbeat-8.17
     fields:
