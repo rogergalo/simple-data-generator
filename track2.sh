@@ -1,5 +1,5 @@
 # Create enrich-rip index template
-curl -X PUT "http://localhost:30920/_index_template/enrich-rip" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF
+curl -X PUT "http://localhost:30920/_index_template/enrich-rip" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
   "template": {
     "settings": {
