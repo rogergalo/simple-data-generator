@@ -1799,7 +1799,7 @@ curl -X PUT "http://localhost:30920/_index_template/logs-network_traffic.dns" -H
   "priority": 200,
   "template": {
     "settings": {
-      "index": {}
+      "index": {"default_pipeline": "enrich-logs-network_traffic"}
     },
     "mappings": {
       "_meta": {
