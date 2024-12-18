@@ -30,7 +30,7 @@ EOF
 # Load enrich-rip index data
 curl -X POST "http://localhost:30920/enrich-rip/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-rip.ndjson
 
-# Execute enrich-rip enrichment
+# Create the enrich-rip enrichment
 curl -X PUT "http://localhost:30920/_enrich/policy/remote-ips" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
   "match": {
@@ -40,6 +40,9 @@ curl -X PUT "http://localhost:30920/_enrich/policy/remote-ips" -H "Content-Type:
   }
 }
 EOF
+
+# Execute enrich-rip enrichment
+curl -X POST "http://localhost:30920/_enrich/policy/remote-ips/_execute" -u "sdg:changeme"
 
 # Add enrich-logs-network_traffic & enrich-logs-network_traffic-dns & logs-network_traffic-cleanup ingest pipeline
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-logs-network_traffic" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-logs-network_traffic.json
