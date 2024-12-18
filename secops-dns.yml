@@ -78,7 +78,7 @@ workloads:
 
   - workloadName: network-dns-sunburst
     workloadThreads: 1
-    workloadSleep: 1000
+    workloadSleep: 100
     indexName: logs-network_traffic.dns
     fields:
       - name: clientbytes
