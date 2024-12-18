@@ -1,3 +1,46 @@
+# Create enrich-rip index template
+curl -X PUT "http://localhost:30920/_index_template/enrich-rip" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "ripcodes": {
+          "type": "long"
+        },
+        "rip1": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "enrich-rip*"
+  ],
+  "composed_of": [],
+  "ignore_missing_component_templates": [],
+  "allow_auto_create": true
+}
+EOF
+
+# Load enrich-rip index data
+curl -X POST "http://localhost:30920/enrich-rip/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-rip.ndjson
+
+# Execute enrich-rip enrichment
+curl -X PUT "http://localhost:30920/_enrich/policy/remote-ips" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "match": {
+    "indices": "enrich-rip",
+    "match_field": "ripcodes",
+    "enrich_fields": ["rip1"]
+  }
+}
+EOF
+
 # Add enrich-logs-network_traffic & enrich-logs-network_traffic-dns & logs-network_traffic-cleanup ingest pipeline
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-logs-network_traffic" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-logs-network_traffic.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-logs-network_traffic-dns" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-logs-network_traffic-dns.json
@@ -1839,6 +1882,6 @@ echo
 echo
 echo 
 echo
-cd simple-data-generator && gradle clean; gradle build fatJar
+# cd simple-data-generator && gradle clean; gradle build fatJar
 echo "Starting data ingestion, press CTRL + C to unplug from the Matrix."
 java -jar /root/simple-data-generator/build/libs/simple-data-generator-1.0.0-SNAPSHOT.jar /root/simple-data-generator/secops-dns.yml
