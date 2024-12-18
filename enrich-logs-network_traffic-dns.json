@@ -2,183 +2,183 @@
   "processors": [
     {
       "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
         "field": "dnsoptudpsize",
-        "target_field": "dns.opt.udp_size",
-        "ignore_missing": true,
-        "ignore_failure": true
+        "target_field": "dns.opt.udp_size"
       }
     },
     {
       "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
         "field": "dnsquestionregistereddomain",
-        "target_field": "dns.question.registered_domain",
-        "ignore_missing": true,
-        "ignore_failure": true
+        "target_field": "dns.question.registered_domain"
       }
     },
     {
       "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
         "field": "dnsquestiontype",
-        "target_field": "dns.question.type",
-        "ignore_missing": true,
-        "ignore_failure": true
+        "target_field": "dns.question.type"
       }
     },
     {
       "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
         "field": "dnsanswertype",
-        "target_field": "dns.answer.type",
-        "ignore_missing": true,
-        "ignore_failure": true
+        "target_field": "dns.answer.type"
       }
     },
     {
       "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
         "field": "clientbytes",
-        "target_field": "destination.bytes",
-        "ignore_missing": true,
-        "ignore_failure": true
+        "target_field": "destination.bytes"
       }
     },
     {
       "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
         "field": "serverbytes",
-        "target_field": "source.bytes",
-        "ignore_missing": true,
-        "ignore_failure": true
+        "target_field": "source.bytes"
       }
     },
     {
       "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
         "field": "eventduration",
-        "target_field": "event.duration",
-        "ignore_missing": true,
-        "ignore_failure": true
+        "target_field": "event.duration"
       }
     },
     {
       "rename": {
-        "field": "mlisdgamaliciousprediction",
-        "target_field": "ml_is_dga.malicious_prediction",
+        "ignore_failure": true,
         "ignore_missing": true,
-        "ignore_failure": true
+        "field": "mlisdgamaliciousprediction",
+        "target_field": "ml_is_dga.malicious_prediction"
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "dns.question.registered_domain",
         "value": "avsvmcloud.com",
-        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'",
-        "ignore_failure": true
+        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'"
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "network.protocol",
         "value": "dns",
-        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'",
-        "ignore_failure": true
+        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'"
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "dns.question.type",
         "value": "PTR",
-        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'",
-        "ignore_failure": true
+        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'"
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "dns.question.type",
         "value": "PTR",
-        "if": "ctx?.dns?.answer?.type == 'PTR'",
-        "ignore_failure": true
+        "if": "ctx?.dns?.answer?.type == 'PTR'"
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "dns.op_code",
         "value": "QUERY",
-        "if": "ctx?.dns?.question?.type == 'A' || ctx?.dns?.question?.type == 'AAAA' ",
-        "ignore_failure": true
+        "if": "ctx?.dns?.question?.type == 'A' || ctx?.dns?.question?.type == 'AAAA' "
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "dns.question.class",
         "value": "IN",
-        "if": "ctx?.dns?.question?.type == 'A' || ctx?.dns?.question?.type == 'AAAA' ",
-        "ignore_failure": true
+        "if": "ctx?.dns?.question?.type == 'A' || ctx?.dns?.question?.type == 'AAAA' "
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "dns.response_code",
         "value": "NOERROR",
-        "if": "ctx?.dns?.question?.type == 'PTR' || ctx?.dns?.question?.type == 'AAAA' || ctx?.dns?.question?.type == 'A'",
-        "ignore_failure": true
+        "if": "ctx?.dns?.question?.type == 'PTR' || ctx?.dns?.question?.type == 'AAAA' || ctx?.dns?.question?.type == 'A'"
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "dns.response_code",
         "value": "NXDOMAIN",
-        "if": "ctx?.dns?.question?.type == 'TXT' || ctx?.dns?.question?.type == 'MX'",
-        "ignore_failure": true
+        "if": "ctx?.dns?.question?.type == 'TXT' || ctx?.dns?.question?.type == 'MX'"
       }
     },
     {
       "set": {
-        "field": "dns.question.name",
         "ignore_failure": true,
+        "field": "dns.question.name",
         "copy_from": "dns.question.registered_domain"
       }
     },
     {
       "enrich": {
-        "field": "ripcodes",
+        "ignore_failure": true,
         "policy_name": "remote-ips",
-        "target_field": "rips",
         "ignore_missing": true,
-        "ignore_failure": true
+        "field": "ripcodes",
+        "target_field": "rips"
       }
     },
     {
       "rename": {
-        "field": "rips.rip1",
-        "target_field": "rip1",
+        "ignore_failure": true,
         "ignore_missing": true,
-        "ignore_failure": true
+        "field": "rips.rip1",
+        "target_field": "rip1"
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "destination.ip",
-        "value": "{{rip1}}.{{rip2}}.{{rip3}}.{{rip4}}",
-        "ignore_failure": true
+        "value": "{{rip1}}.{{rip2}}.{{rip3}}.{{rip4}}"
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "source.ip",
-        "value": "{{2rip1}}.{{2rip2}}.{{2rip3}}.{{2rip4}}",
-        "ignore_failure": true
+        "value": "{{2rip1}}.{{2rip2}}.{{2rip3}}.{{2rip4}}"
       }
     },
     {
       "set": {
+        "ignore_failure": true,
         "field": "source.ip",
         "value": "10.49.110.17",
-        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'",
-        "ignore_failure": true
+        "if": "ctx?.ml_is_dga?.malicious_prediction == '1'"
       }
     },
     {
       "geoip": {
+        "ignore_failure": true,
         "field": "destination.ip",
-        "target_field": "destination.geo",
-        "ignore_failure": true
+        "target_field": "destination.geo"
       }
     },
     {
@@ -190,8 +190,8 @@
     },
     {
       "set": {
-        "field": "event.ingested",
         "ignore_failure": true,
+        "field": "event.ingested",
         "copy_from": "@timestamp"
       }
     }
