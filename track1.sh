@@ -7827,8 +7827,8 @@ center_row=$(( rows / 2 ))
 tput cup $center_row $center_col
 echo "$message" | cowsay
 
-# Wait for 10 seconds with the message displayed
-sleep 10
+# Wait for 8 seconds with the message displayed
+sleep 8
 
 # Kill cmatrix process
 kill $MATRIX_PID
