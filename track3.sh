@@ -1,16 +1,156 @@
+# Setup Index Template for proxy events
+curl -X PUT "http://localhost:30920/_index_template/bluecoat" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "default_pipeline": "enrich-bluecoat",
+        "number_of_shards": "1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "proxy": {
+          "type": "object",
+          "properties": {
+            "request": {
+              "type": "object",
+              "properties": {
+                "bytes": {
+                  "type": "long"
+                },
+                "url": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "index_options": "docs",
+                  "split_queries_on_whitespace": false,
+                  "doc_values": true
+                }
+              }
+            },
+            "response": {
+              "type": "object",
+              "properties": {
+                "bytes": {
+                  "type": "long"
+                }
+              }
+            },
+            "category": {
+              "type": "keyword"
+            }
+          }
+        },
+        "destination": {
+          "type": "object",
+          "properties": {
+            "geo": {
+              "type": "object",
+              "properties": {
+                "location": {
+                  "type": "geo_point"
+                }
+              }
+            },
+            "ip": {
+              "type": "ip"
+            }
+          }
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "geo": {
+              "type": "object",
+              "properties": {
+                "location": {
+                  "type": "geo_point"
+                }
+              }
+            },
+            "ip": {
+              "type": "ip"
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "logs-bluecoat*"
+  ],
+  "composed_of": [
+    "ecs@mappings"
+  ],
+  "allow_auto_create": true
+}
+EOF
+
+# Setup Index Templates for enrich indicies
+curl -X PUT "http://localhost:30920/_index_template/enrich-bluecoat" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": "1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "event.action": { "type": "keyword" },
+        "event.category": { "type": "keyword" },
+        "event.dataset": { "type": "keyword" },
+        "event.kind": { "type": "keyword" },
+        "event.module": { "type": "keyword" },
+        "event.outcome": { "type": "keyword" },
+        "event.type": { "type": "keyword" },
+        "proxcode": { "type": "long" },
+        "proxy.category": { "type": "keyword" }
+      }
+    }
+  },
+  "index_patterns": ["enrich-bluecoat*"]
+}
+EOF
+
+curl -X PUT "http://localhost:30920/_index_template/enrich-user_agents" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": "1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "code": { "type": "long" },
+        "user_agent": { "properties": { "os": { "properties": { "full": { "type": "keyword" } } } } }
+      }
+    }
+  },
+  "index_patterns": ["enrich-user_agents*"]
+}
+EOF
+
 # Load enrich-bluecoat index data
-#curl -X POST "http://localhost:30920/enrich-bluecoat/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-bluecoat.ndjson
+curl -X POST "http://localhost:30920/enrich-bluecoat/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-bluecoat.ndjson
 
 # Create the enrich-bluecoat enrichment
-#curl -X PUT "http://localhost:30920/_enrich/policy/enrich-bluecoat" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
-#{
-#  "match": {
-#    "indices": "enrich-bluecoat",
-#    "match_field": "proxcode",
-#    "enrich_fields": ["event.action", "event.category", "event.dataset", "event.kind", "event.module", "event.outcome", "event.type", "proxy.category"]
-#  }
-#}
-#EOF
+curl -X PUT "http://localhost:30920/_enrich/policy/enrich-bluecoat" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "match": {
+    "indices": "enrich-bluecoat",
+    "match_field": "proxcode",
+    "enrich_fields": ["event.action", "event.category", "event.dataset", "event.kind", "event.module", "event.outcome", "event.type", "proxy.category"]
+  }
+}
+EOF
 
 # Initiate enrich-bluecoat enrichment policy
 curl -X POST "http://localhost:30920/_enrich/policy/enrich-bluecoat/_execute" -u "sdg:changeme"
