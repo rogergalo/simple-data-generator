@@ -32,6 +32,31 @@ curl -X PUT "http://localhost:30920/_index_template/bluecoat" -H "Content-Type: 
                 }
               }
             },
+                  "event": {
+        "properties": {
+          "action": {
+            "type": "keyword"
+          },
+          "category": {
+            "type": "keyword"
+          },
+          "dataset": {
+            "type": "keyword"
+          },
+          "kind": {
+            "type": "keyword"
+          },
+          "module": {
+            "type": "keyword"
+          },
+          "outcome": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
             "response": {
               "type": "object",
               "properties": {
