@@ -134,34 +134,6 @@ curl -X PUT "http://localhost:30920/_index_template/bluecoat" -H "Content-Type: 
 }
 EOF
 
-# Setup Index Templates for enrich indicies
-curl -X PUT "http://localhost:30920/_index_template/enrich-bluecoat" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
-{
-  "template": {
-    "settings": {
-      "index": {
-        "number_of_shards": "1",
-        "number_of_replicas": "0"
-      }
-    },
-    "mappings": {
-      "properties": {
-        "event.action": { "type": "keyword" },
-        "event.category": { "type": "keyword" },
-        "event.dataset": { "type": "keyword" },
-        "event.kind": { "type": "keyword" },
-        "event.module": { "type": "keyword" },
-        "event.outcome": { "type": "keyword" },
-        "event.type": { "type": "keyword" },
-        "proxcode": { "type": "long" },
-        "proxy.category": { "type": "keyword" }
-      }
-    }
-  },
-  "index_patterns": ["enrich-bluecoat*"]
-}
-EOF
-
 curl -X PUT "http://localhost:30920/_index_template/enrich-user_agents" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
   "template": {
