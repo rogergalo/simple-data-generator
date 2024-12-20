@@ -32,31 +32,6 @@ curl -X PUT "http://localhost:30920/_index_template/bluecoat" -H "Content-Type: 
                 }
               }
             },
-                  "event": {
-        "properties": {
-          "action": {
-            "type": "keyword"
-          },
-          "category": {
-            "type": "keyword"
-          },
-          "dataset": {
-            "type": "keyword"
-          },
-          "kind": {
-            "type": "keyword"
-          },
-          "module": {
-            "type": "keyword"
-          },
-          "outcome": {
-            "type": "keyword"
-          },
-          "type": {
-            "type": "keyword"
-          }
-        }
-      },
             "response": {
               "type": "object",
               "properties": {
@@ -69,6 +44,48 @@ curl -X PUT "http://localhost:30920/_index_template/bluecoat" -H "Content-Type: 
               "type": "keyword"
             }
           }
+        },
+        "bc": {
+          "type": "object",
+          "properties": {
+            "event": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "keyword"
+                },
+                "module": {
+                  "type": "keyword"
+                },
+                "action": {
+                  "type": "keyword"
+                },
+                "type": {
+                  "type": "keyword"
+                },
+                "category": {
+                  "type": "keyword"
+                },
+                "dataset": {
+                  "type": "keyword"
+                },
+                "outcome": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "data_stream": {
+          "dynamic": true,
+          "type": "object",
+          "enabled": true,
+          "properties": {
+            "dataset": {
+              "type": "keyword"
+            }
+          },
+          "subobjects": true
         },
         "destination": {
           "type": "object",
@@ -106,11 +123,13 @@ curl -X PUT "http://localhost:30920/_index_template/bluecoat" -H "Content-Type: 
     }
   },
   "index_patterns": [
+    "bluecoat*",
     "logs-bluecoat*"
   ],
   "composed_of": [
     "ecs@mappings"
   ],
+  "ignore_missing_component_templates": [],
   "allow_auto_create": true
 }
 EOF
