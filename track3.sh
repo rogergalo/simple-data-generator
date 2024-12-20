@@ -1,3 +1,57 @@
+# Setup Index Template for enrich-bluecoat events
+curl -X PUT "http://localhost:30920/_index_template/enrich-bluecoat" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": "1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+ "properties": {
+      "event": {
+        "properties": {
+          "action": {
+            "type": "keyword"
+          },
+          "category": {
+            "type": "keyword"
+          },
+          "dataset": {
+            "type": "keyword"
+          },
+          "kind": {
+            "type": "keyword"
+          },
+          "module": {
+            "type": "keyword"
+          },
+          "outcome": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "proxcode": {
+        "type": "long"
+      },
+      "proxy": {
+        "properties": {
+          "category": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+    }
+  },
+  "index_patterns": ["enrich-bluecoat*"]
+}
+EOF
+
 # Setup Index Template for proxy events
 curl -X PUT "http://localhost:30920/_index_template/bluecoat" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
