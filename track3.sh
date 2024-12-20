@@ -155,7 +155,7 @@ curl -X PUT "http://localhost:30920/_index_template/enrich-user_agents" -H "Cont
 EOF
 
 # Load enrich-bluecoat index data
-curl -X POST "http://localhost:30920/enrich-bluecoat/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-bluecoat.ndjson
+curl -X POST "http://localhost:30920/enrich-bluecoat/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/bluecoat.ndjson
 curl -X POST "http://localhost:30920/enrich-user_agents/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-user_agents.ndjson
 
 # Create the enrich-bluecoat enrichment
