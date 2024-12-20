@@ -107,5 +107,3 @@ workloads:
 
       - name: proxyrequesturl
         type: url
-
-
