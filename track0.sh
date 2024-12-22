@@ -236,12 +236,28 @@ curl -X PUT "http://localhost:30920/_index_template/enrich-user_agents" -H "Cont
 }
 EOF
 
+# Clear the screen
+clear
+
+echo
+echo "Enrichment index templates loaded"
+echo
+sleep 2
+
 # Load enrichment data sources
 curl -X POST "http://localhost:30920/enrich-windows.sysmon_operational/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-windows.sysmon_operational.ndjson
 curl -X POST "http://localhost:30920/enrich-rip/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-rip.ndjson
 curl -X POST "http://localhost:30920/enrich-bluecoat/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/bluecoat.ndjson
 curl -X POST "http://localhost:30920/enrich-nginxv2/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-nginxv2.ndjson
 curl -X POST "http://localhost:30920/enrich-user_agents/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-user_agents.ndjson
+
+# Clear the screen
+clear
+
+echo
+echo "Enrichment data sources loaded"
+echo
+sleep 2
 
 # Create enrichment policies
 curl -X PUT "http://localhost:30920/_enrich/policy/enrich-windows.sysmon_operational" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
@@ -294,12 +310,28 @@ curl -X PUT "http://localhost:30920/_enrich/policy/user-agents" -H "Content-Type
 }
 EOF
 
+# Clear the screen
+clear
+
+echo
+echo "Enrichment policies loaded"
+echo
+sleep 2
+
 # Execute enrichment policies
 curl -X POST "http://localhost:30920/_enrich/policy/enrich-windows.sysmon_operational/_execute" -u "sdg:changeme"
 curl -X POST "http://localhost:30920/_enrich/policy/remote-ips/_execute" -u "sdg:changeme"
 curl -X POST "http://localhost:30920/_enrich/policy/enrich-bluecoat/_execute" -u "sdg:changeme"
 curl -X POST "http://localhost:30920/_enrich/policy/enrich-nginx/_execute" -u "sdg:changeme"
 curl -X POST "http://localhost:30920/_enrich/policy/user-agents/_execute" -u "sdg:changeme"
+
+# Clear the screen
+clear
+
+echo
+echo "Enrichment policies executed"
+echo
+sleep 2
 
 # Creat ingest pipelines
 curl -X PUT "http://localhost:30920/_ingest/pipeline/logs-windows.sysmon_operational" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/logs-windows.sysmon_operational.json
@@ -310,6 +342,14 @@ curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-bluecoat" -H "Conten
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-nginx" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-nginx-pipeline.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/email-filter-rules" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/email-filter-rules-pipeline.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-email" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-email-pipeline.json
+
+# Clear the screen
+clear
+
+echo
+echo "Ingest pipelines loaded"
+echo
+sleep 2
 
 # Create index templates for data ingestion for tracks
 curl -X PUT "http://localhost:30920/_index_template/winlogbeat" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
@@ -2673,3 +2713,16 @@ curl -X PUT "http://localhost:30920/_index_template/email" -H "Content-Type: app
   "allow_auto_create": true
 }
 EOF
+
+# Clear the screen
+clear
+
+echo
+echo "Index templates for tracks loaded"
+echo
+sleep 2
+
+# Clear the screen
+clear
+
+bash simple-data-generator/track1.sh
