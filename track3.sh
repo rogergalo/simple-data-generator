@@ -188,29 +188,8 @@ curl -X PUT "http://localhost:30920/_index_template/bluecoat" -H "Content-Type: 
 }
 EOF
 
-curl -X PUT "http://localhost:30920/_index_template/enrich-user_agents" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
-{
-  "template": {
-    "settings": {
-      "index": {
-        "number_of_shards": "1",
-        "number_of_replicas": "0"
-      }
-    },
-    "mappings": {
-      "properties": {
-        "code": { "type": "long" },
-        "user_agent": { "properties": { "os": { "properties": { "full": { "type": "keyword" } } } } }
-      }
-    }
-  },
-  "index_patterns": ["enrich-user_agents*"]
-}
-EOF
-
 # Load enrich-bluecoat index data
 curl -X POST "http://localhost:30920/enrich-bluecoat/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/bluecoat.ndjson
-curl -X POST "http://localhost:30920/enrich-user_agents/_bulk" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" --data-binary @/root/simple-data-generator/enrich-user_agents.ndjson
 
 # Create the enrich-bluecoat enrichment
 curl -X PUT "http://localhost:30920/_enrich/policy/enrich-bluecoat" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
@@ -223,19 +202,8 @@ curl -X PUT "http://localhost:30920/_enrich/policy/enrich-bluecoat" -H "Content-
 }
 EOF
 
-curl -X PUT "http://localhost:30920/_enrich/policy/user-agents" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
-{
-  "match": {
-    "indices": "enrich-user_agents",
-    "match_field": "code",
-    "enrich_fields": ["user_agent.os.full"]
-  }
-}
-EOF
-
 # Initiate enrich-bluecoat enrichment policy
 curl -X POST "http://localhost:30920/_enrich/policy/enrich-bluecoat/_execute" -u "sdg:changeme"
-curl -X POST "http://localhost:30920/_enrich/policy/user-agents/_execute" -u "sdg:changeme"
 
 # Add enrich-bluecoat ingest pipeline
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-bluecoat" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-bluecoat-pipeline.json
