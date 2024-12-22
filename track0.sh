@@ -2517,8 +2517,7 @@ curl -X PUT "http://localhost:30920/_index_template/nginx" -H "Content-Type: app
     }
   },
   "index_patterns": [
-    "logs-nginx*",
-    "enrich-nginx*"
+    "logs-nginx*"
   ],
   "composed_of": [
     "logs@settings",
