@@ -1,0 +1,105 @@
+elasticsearchScheme: http
+elasticsearchHost: localhost
+elasticsearchPort: 30920
+elasticsearchUser: sdg
+elasticsearchPassword: changeme
+workloads:
+  - workloadName: email
+    workloadThreads: 3
+    workloadSleep: 100
+    indexName: logs-email.filter
+    fields:
+      - name: external
+        type: email
+
+      - name: fname
+        type: first_name
+
+      - name: lname
+        type: last_name
+
+      - name: fname2
+        type: first_name
+
+      - name: lname2
+        type: last_name
+
+      - name: department
+        type: group
+
+      - name: proxyresponsebytes
+        type: int
+        range: 0,62299
+
+      - name: filehashmd5
+        type: hash
+
+      - name: filehashsha1
+        type: hash
+
+      - name: filehashsha256
+        type: hash
+
+      - name: filename
+        type: random_string_from_list
+        custom_list: Annual_Report_2023,Meeting_Minutes_March2024,Project_Proposal_v1,Client_Agreement_Signed,Employee_Handbook_2023,Product_Description,Research_Notes,Financial_Statement,Sales_Data_Q4_2023,Budget_Plan_2024,Customer_Feedback_Responses,Inventory_List_Summer2023,Task_List_January2024,Marketing_Strategy_Presentation,Company_Overview_2023,Training_Session_Slides,Sales_Pitch_Template,Vendor_Contract_Template,Team_Meeting_Notes_2023,Weekly_Update_Newsletter,Company_Logo,Product_Shot_1,Event_Photos_2023,Team_Photo_2024,Blueprint_Diagram,Marketing_Poster_Design,Product_Catalog_Cover,Website_Banner,Infographic_2023,Client_Testimonials_Image,Office_Floor_Plan,Event_Poster,Profile_Picture_JohnDoe,Brochure_Layout,Social_Media_Ad,Quarterly_Review_Slides,Product_Launch_Deck,Training_Module_1,Workshop_Material,Company_Milestones,Investor_Presentation_May2024,Client_Presentation_Session1,Sales_Report_Slides_June2024,Team_Building_Activities,Annual_Meeting_Overview,Expense_Report_April2024,Revenue_Analysis_2023,Project_Timeline_GanttChart,Employee_Salary_Sheet,Travel_Expenses_2024,Customer_Database_May2024,Annual_Budget_2024,Product_Pricing_Strategy,Competitor_Analysis_Q3_2023,Employee_Attendance_Record,Project_Files_Archive,Event_Photos_2023,Marketing_Materials_7z,Website_Backup_August2024,Source_Code_Repository,Documentation_Files_Archive,Product_Images_Pack,Client_Data_Backup_2023,Software_Installer,Video_Editing_Assets,Customer_Records,Product_Database,Website_Analytics_DB,Employee_Management,Sales_Data_Query,Client_Info_DB,Project_Management_System,Inventory_Tracking_Database,Data_Backup_March2024,Website_Content_DB
+
+      - name: extension
+        type: random_string_from_list
+        custom_list: txt,pdf,doc,mp3,csv,xls,docx,rtf,wps,xlsx,xlsm,ppt,pptx,mdb,accdb,sqlite,db,sql,zip,rar,7z,tar.gz,jpg,jpeg,png,gif,bmp,xml,html
+
+      - name: direction
+        type: random_string_from_list
+        custom_list: inbound,inbound,outbound,outbound,outbound,internal,internal,internal,internal,internal
+
+      - name: eventaction
+        type: random_string_from_list
+        custom_list: PASS
+
+      - name: ripcodes
+        type: int
+        range: 1,251
+
+      - name: rip2
+        type: int
+        range: 0,255
+
+      - name: rip3
+        type: int
+        range: 0,255
+
+      - name: rip4
+        type: int
+        range: 0,255
+
+      - name: 2rip1
+        type: int
+        range: 10,10
+
+      - name: 2rip2
+        type: int
+        range: 0,255
+
+      - name: 2rip3
+        type: int
+        range: 0,255
+
+      - name: 2rip4
+        type: int
+        range: 0,254
+
+      - name: 2rip1a
+        type: int
+        range: 10,10
+
+      - name: 2rip2a
+        type: int
+        range: 0,255
+
+      - name: 2rip3a
+        type: int
+        range: 0,255
+
+      - name: 2rip4a
+        type: int
+        range: 0,254
