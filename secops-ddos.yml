@@ -1,0 +1,133 @@
+elasticsearchScheme: http
+elasticsearchHost: localhost
+elasticsearchPort: 30920
+elasticsearchUser: sdg
+elasticsearchPassword: changeme
+workloads:
+  - workloadName: nginx-access
+    workloadThreads: 4
+    workloadSleep: 10
+    indexName: logs-nginx.access
+    fields:
+      - name: ripcodes
+        type: int
+        range: 1,251
+
+      - name: rip2
+        type: int
+        range: 0,255
+
+      - name: rip3
+        type: int
+        range: 0,255
+
+      - name: rip4
+        type: int
+        range: 0,255
+
+      - name: nginxcode
+        type: int
+        range: 1,69
+
+      - name: uacode
+        type: int
+        range: 1,1035
+
+      - name: slowloris
+        type: int
+        range: 1,65536
+
+      - name: httpbodybytes
+        type: int
+        range: 0,622996
+
+      - name: datastreamdataset
+        type: random_string_from_list
+        custom_list: nginx.access
+
+  - workloadName: nginx-ddos
+    workloadThreads: 4
+    workloadSleep: 10
+    indexName: logs-nginx.access
+    fields:
+      - name: ripcodes
+        type: int
+        range: 1,251
+
+      - name: rip2
+        type: int
+        range: 0,255
+
+      - name: rip3
+        type: int
+        range: 0,255
+
+      - name: rip4
+        type: int
+        range: 0,255
+
+      - name: nginxcode
+        type: int
+        range: 69,69
+
+      - name: uacode
+        type: int
+        range: 1,1035
+
+      - name: slowloris
+        type: int
+        range: 1,65536
+
+      - name: httpbodybytes
+        type: int
+        range: 0,622996
+
+      - name: datastreamdataset
+        type: random_string_from_list
+        custom_list: nginx.access
+
+
+  - workloadName: nginx-error
+    workloadThreads: 1
+    workloadSleep: 1000
+    indexName: logs-nginx.error
+    fields:
+      - name: ripcodes
+        type: int
+        range: 1,251
+
+      - name: rip2
+        type: int
+        range: 0,255
+
+      - name: rip3
+        type: int
+        range: 0,255
+
+      - name: rip4
+        type: int
+        range: 0,255
+
+      - name: nginxcode
+        type: int
+        range: 1,69
+
+      - name: uacode
+        type: int
+        range: 1,1035
+
+      - name: slowloris
+        type: int
+        range: 1,1035024
+
+      - name: httpbodybytes
+        type: int
+        range: 0,622996
+
+      - name: loglevel
+        type: random_string_from_list
+        custom_list: error,error,error,error,error,error,info,crit,crit,crit,warn,warn
+
+      - name: datastreamdataset
+        type: random_string_from_list
+        custom_list: nginx.error
