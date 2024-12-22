@@ -308,6 +308,8 @@ curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-logs-network_traffic
 curl -X PUT "http://localhost:30920/_ingest/pipeline/logs-network_traffic-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/logs-network_traffic-cleanup.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-bluecoat" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-bluecoat-pipeline.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-nginx" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-nginx-pipeline.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/email-filter-rules" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/email-filter-rules-pipeline.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-email" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-email-pipeline.json
 
 # Create index templates for data ingestion for tracks
 curl -X PUT "http://localhost:30920/_index_template/winlogbeat" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
@@ -2346,6 +2348,327 @@ curl -X PUT "http://localhost:30920/_index_template/bluecoat" -H "Content-Type: 
   ],
   "composed_of": [
     "ecs@mappings"
+  ],
+  "ignore_missing_component_templates": [],
+  "allow_auto_create": true
+}
+EOF
+
+curl -X PUT "http://localhost:30920/_index_template/nginx" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_replicas": "0",
+        "default_pipeline": "enrich-nginx"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "log": {
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "data_stream": {
+          "type": "object",
+          "properties": {
+            "dataset": {
+              "type": "keyword"
+            }
+          }
+        },
+        "http": {
+          "type": "object",
+          "properties": {
+            "request": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "response": {
+              "type": "object",
+              "properties": {
+                "status_code": {
+                  "type": "long"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
+            "version": {
+              "type": "keyword"
+            }
+          }
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "geo": {
+              "type": "object",
+              "properties": {
+                "continent_name": {
+                  "type": "keyword"
+                },
+                "country_iso_code": {
+                  "type": "keyword"
+                },
+                "country_name": {
+                  "type": "keyword"
+                },
+                "location": {
+                  "type": "geo_point"
+                }
+              }
+            },
+            "ip": {
+              "type": "ip"
+            }
+          }
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "ingested": {
+              "type": "date"
+            },
+            "kind": {
+              "type": "keyword"
+            },
+            "module": {
+              "type": "keyword"
+            },
+            "category": {
+              "type": "keyword"
+            },
+            "dataset": {
+              "type": "keyword"
+            },
+            "outcome": {
+              "type": "keyword"
+            }
+          }
+        },
+        "user_agent": {
+          "type": "object",
+          "properties": {
+            "original": {
+              "type": "keyword"
+            },
+            "os": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "keyword"
+                },
+                "version": {
+                  "type": "keyword"
+                },
+                "full": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "version ": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            },
+            "device": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "keyword"
+                },
+                "type": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "url": {
+          "type": "object",
+          "properties": {
+            "original": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "logs-nginx*",
+    "enrich-nginx*"
+  ],
+  "composed_of": [
+    "logs@settings",
+    "ecs@mappings"
+  ],
+  "ignore_missing_component_templates": [],
+  "allow_auto_create": true
+}
+EOF
+
+curl -X PUT "http://localhost:30920/_index_template/email" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "default_pipeline": "enrich-email",
+        "number_of_replicas": 0
+      }
+    },
+    "mappings": {
+      "properties": {
+        "email": {
+          "type": "object",
+          "properties": {
+            "attachments": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "type": "object",
+                  "properties": {
+                    "extension": {
+                      "type": "keyword"
+                    },
+                    "hash": {
+                      "type": "object",
+                      "properties": {
+                        "md5": {
+                          "type": "keyword"
+                        },
+                        "sha1": {
+                          "type": "keyword"
+                        },
+                        "sha256": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "mime_type": {
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "type": "keyword"
+                    },
+                    "size": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
+            "bcc": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "cc": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "content_type": {
+              "type": "keyword"
+            },
+            "direction": {
+              "type": "keyword"
+            },
+            "from": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "reply_to": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "sender": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "subject": {
+              "type": "keyword"
+            },
+            "to": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "keyword"
+            },
+            "category": {
+              "type": "keyword"
+            },
+            "dataset": {
+              "type": "keyword"
+            },
+            "kind": {
+              "type": "keyword"
+            },
+            "module": {
+              "type": "keyword"
+            },
+            "reason": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "logs-email*"
+  ],
+  "composed_of": [
+    "logs-network_traffic.dns@package"
   ],
   "ignore_missing_component_templates": [],
   "allow_auto_create": true
