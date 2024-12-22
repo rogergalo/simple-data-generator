@@ -115,34 +115,32 @@ curl -X PUT "http://localhost:30920/_index_template/enrich-bluecoat" -H "Content
 }
 EOF
 
-curl -X PUT "http://localhost:30920/_index_template/nginx" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+curl -X PUT "http://localhost:30920/_index_template/enrich-nginx" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
 {
   "template": {
     "settings": {
       "index": {
-        "number_of_replicas": "0",
-        "default_pipeline": "enrich-nginx"
+        "number_of_replicas": 0
       }
     },
     "mappings": {
       "properties": {
-        "log": {
-          "type": "object",
-          "properties": {
-            "file": {
-              "type": "object",
-              "properties": {
-                "path": {
-                  "type": "keyword"
-                }
-              }
-            }
-          }
+        "code": {
+          "type": "long"
         },
-        "data_stream": {
+        "event": {
           "type": "object",
           "properties": {
-            "dataset": {
+            "category": {
+              "type": "keyword"
+            },
+            "kind": {
+              "type": "keyword"
+            },
+            "outcome": {
+              "type": "keyword"
+            },
+            "type": {
               "type": "keyword"
             }
           }
@@ -150,6 +148,9 @@ curl -X PUT "http://localhost:30920/_index_template/nginx" -H "Content-Type: app
         "http": {
           "type": "object",
           "properties": {
+            "version": {
+              "type": "keyword"
+            },
             "request": {
               "type": "object",
               "properties": {
@@ -162,104 +163,19 @@ curl -X PUT "http://localhost:30920/_index_template/nginx" -H "Content-Type: app
               "type": "object",
               "properties": {
                 "status_code": {
-                  "type": "long"
-                },
-                "body": {
-                  "type": "object",
-                  "properties": {
-                    "bytes": {
-                      "type": "long"
-                    }
-                  }
-                }
-              }
-            },
-            "version": {
-              "type": "keyword"
-            }
-          }
-        },
-        "source": {
-          "type": "object",
-          "properties": {
-            "geo": {
-              "type": "object",
-              "properties": {
-                "continent_name": {
-                  "type": "keyword"
-                },
-                "country_iso_code": {
-                  "type": "keyword"
-                },
-                "country_name": {
-                  "type": "keyword"
-                },
-                "location": {
-                  "type": "geo_point"
-                }
-              }
-            },
-            "ip": {
-              "type": "ip"
-            }
-          }
-        },
-        "event": {
-          "type": "object",
-          "properties": {
-            "ingested": {
-              "type": "date"
-            },
-            "kind": {
-              "type": "keyword"
-            },
-            "module": {
-              "type": "keyword"
-            },
-            "category": {
-              "type": "keyword"
-            },
-            "dataset": {
-              "type": "keyword"
-            },
-            "outcome": {
-              "type": "keyword"
-            }
-          }
-        },
-        "user_agent": {
-          "type": "object",
-          "properties": {
-            "original": {
-              "type": "keyword"
-            },
-            "os": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "keyword"
-                },
-                "version": {
-                  "type": "keyword"
-                },
-                "full": {
                   "type": "keyword"
                 }
               }
-            },
-            "version ": {
-              "type": "keyword"
-            },
-            "name": {
-              "type": "keyword"
-            },
-            "device": {
+            }
+          }
+        },
+        "log": {
+          "type": "object",
+          "properties": {
+            "file": {
               "type": "object",
               "properties": {
-                "name": {
-                  "type": "keyword"
-                },
-                "type": {
+                "path": {
                   "type": "keyword"
                 }
               }
@@ -278,14 +194,8 @@ curl -X PUT "http://localhost:30920/_index_template/nginx" -H "Content-Type: app
     }
   },
   "index_patterns": [
-    "logs-nginx*",
     "enrich-nginx*"
   ],
-  "composed_of": [
-    "logs@settings",
-    "ecs@mappings"
-  ],
-  "ignore_missing_component_templates": [],
   "allow_auto_create": true
 }
 EOF
