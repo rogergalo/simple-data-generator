@@ -467,7 +467,7 @@ curl -X PUT "http://localhost:30920/_index_template/winlogbeat" -H "Content-Type
   },
   "index_patterns": [
     "winlogbeat*",
-    "logs-windows.sysmon_operational*
+    "logs-windows.sysmon_operational*"
   ],
   "allow_auto_create": true
 }
