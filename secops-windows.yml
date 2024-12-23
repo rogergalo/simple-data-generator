@@ -42,3 +42,16 @@ workloads:
       - name: 2rip4
         type: int
         range: 0,254
+
+      - name: processpename
+        type: path        
+
+      - name: processargs
+        type: appname
+
+      - name: registry1
+        type: appname
+
+      - name: registry2
+        type: appname        
+        
