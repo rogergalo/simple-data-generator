@@ -7,7 +7,7 @@ workloads:
   - workloadName: nginx-access
     workloadThreads: 4
     workloadSleep: 10
-    indexName: logs-nginx.access-default
+    indexName: logs-nginx.access
     fields:
       - name: ripcodes
         type: int
@@ -48,7 +48,7 @@ workloads:
   - workloadName: nginx-ddos
     workloadThreads: 4
     workloadSleep: 10
-    indexName: logs-nginx.access-default
+    indexName: logs-nginx.access
     fields:
       - name: ripcodes
         type: int
@@ -90,7 +90,7 @@ workloads:
   - workloadName: nginx-error
     workloadThreads: 1
     workloadSleep: 1000
-    indexName: logs-nginx.error-default
+    indexName: logs-nginx.error
     fields:
       - name: ripcodes
         type: int
