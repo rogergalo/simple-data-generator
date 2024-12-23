@@ -1,0 +1,75 @@
+{
+  "processors": [
+    {
+      "set": {
+        "ignore_failure": true,
+        "field": "event.category",
+        "value": "threat"
+      }
+    },
+    {
+      "set": {
+        "ignore_failure": true,
+        "field": "event.dataset",
+        "value": "ti_abusech.malware"
+      }
+    },
+    {
+      "set": {
+        "ignore_failure": true,
+        "field": "event.kind",
+        "value": "enrichment"
+      }
+    },
+    {
+      "set": {
+        "ignore_failure": true,
+        "field": "event.module",
+        "value": "ti_abusech"
+      }
+    },
+    {
+      "set": {
+        "ignore_failure": true,
+        "field": "event.type",
+        "value": "indicator"
+      }
+    },
+    {
+      "set": {
+        "ignore_failure": true,
+        "field": "data_stream.type",
+        "value": "logs"
+      }
+    },
+    {
+      "set": {
+        "ignore_failure": true,
+        "field": "data_stream.namespace",
+        "value": "default"
+      }
+    },
+    {
+      "set": {
+        "ignore_failure": true,
+        "field": "data_stream.dataset",
+        "value": "ti_abusech.malware"
+      }
+    },
+    {
+      "set": {
+        "ignore_failure": true,
+        "field": "threat.feed.name",
+        "value": "AbuseCH Malware"
+      }
+    },
+    {
+      "set": {
+        "ignore_failure": true,
+        "field": "abusech.malware.virustotal.link",
+        "value": "https://www.virustotal.com/gui/file/8aa4945b71a16b0d6dcbe9c5169f0e21470d010be70368d334f34974bd7761e4/detection/f-4293c1d",
+        "if": "ctx.code == '666'"
+      }
+    }
+  ]
+}
