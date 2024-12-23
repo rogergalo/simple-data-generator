@@ -7,7 +7,7 @@ workloads:
   - workloadName: windows-system-security
     workloadThreads: 1
     workloadSleep: 10
-    indexName: winlogbeat-8.17
+    indexName: logs-windows.sysmon_operational
     fields:
       - name: eventcategory
         type: random_string_from_list
