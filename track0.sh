@@ -360,7 +360,7 @@ curl -X PUT "http://localhost:30920/_index_template/winlogbeat" -H "Content-Type
   "template": {
     "settings": {
       "index": {
-        "number_of_replicas": 0,
+        "number_of_replicas": "0",
         "default_pipeline": "logs-windows.sysmon_operational"
       }
     },
@@ -413,6 +413,9 @@ curl -X PUT "http://localhost:30920/_index_template/winlogbeat" -H "Content-Type
             }
           }
         },
+        "message": {
+          "type": "keyword"
+        },
         "parent": {
           "type": "object",
           "properties": {
@@ -439,6 +442,17 @@ curl -X PUT "http://localhost:30920/_index_template/winlogbeat" -H "Content-Type
                   "type": "keyword"
                 }
               }
+            },
+            "pe": {
+              "type": "object",
+              "properties": {
+                "original_file_name": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "args": {
+              "type": "keyword"
             }
           }
         },
@@ -459,8 +473,13 @@ curl -X PUT "http://localhost:30920/_index_template/winlogbeat" -H "Content-Type
             }
           }
         },
-        "message": {
-          "type": "keyword"
+        "registry": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "keyword"
+            }
+          }
         }
       }
     }
