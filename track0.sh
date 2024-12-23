@@ -344,6 +344,7 @@ curl -X PUT "http://localhost:30920/_ingest/pipeline/email-filter-rules" -H "Con
 curl -X PUT "http://localhost:30920/_ingest/pipeline/enrich-email" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/enrich-email-pipeline.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/nginx-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/nginx-cleanup.json
 curl -X PUT "http://localhost:30920/_ingest/pipeline/timestamp-cleanup" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/timestamp-cleanup.json
+curl -X PUT "http://localhost:30920/_ingest/pipeline/abusech" -H "Content-Type: application/x-ndjson" -u "sdg:changeme" -d @/root/simple-data-generator/abusech-pipeline.json
 
 # Clear the screen
 clear
@@ -2713,6 +2714,143 @@ curl -X PUT "http://localhost:30920/_index_template/email" -H "Content-Type: app
     "logs-network_traffic.dns@package"
   ],
   "ignore_missing_component_templates": [],
+  "allow_auto_create": true
+}
+EOF
+
+curl -X PUT "http://localhost:30920/_index_template/abusech" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+{
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_replicas": 0,
+        "default_pipeline": "abusech"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "abusech": {
+          "type": "object",
+          "properties": {
+            "malware": {
+              "type": "object",
+              "properties": {
+                "ioc_expiration_duration": {
+                  "type": "keyword"
+                },
+                "signature": {
+                  "type": "keyword"
+                },
+                "virustotal": {
+                  "type": "object",
+                  "properties": {
+                    "link": {
+                      "type": "keyword"
+                    },
+                    "percent": {
+                      "type": "half_float"
+                    },
+                    "result": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "data_stream": {
+          "type": "object",
+          "properties": {
+            "dataset": {
+              "type": "keyword"
+            },
+            "namespace": {
+              "type": "keyword"
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "keyword"
+            },
+            "dataset": {
+              "type": "keyword"
+            },
+            "ingested": {
+              "type": "date"
+            },
+            "kind": {
+              "type": "keyword"
+            },
+            "module": {
+              "type": "keyword"
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
+        },
+        "threat": {
+          "type": "object",
+          "properties": {
+            "feed": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "indicator": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "type": "object",
+                  "properties": {
+                    "hash": {
+                      "type": "object",
+                      "properties": {
+                        "md5": {
+                          "type": "keyword"
+                        },
+                        "sha256": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "size": {
+                      "type": "long"
+                    },
+                    "type": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "first_seen": {
+                  "type": "date"
+                },
+                "name": {
+                  "type": "keyword"
+                },
+                "type": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "logs-ti_abusech.malware*"
+  ],
   "allow_auto_create": true
 }
 EOF
