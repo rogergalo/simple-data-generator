@@ -163,6 +163,13 @@
         "target_field": "proxy.request.url"
       }
     },
+   {
+      "pipeline": {
+        "name": "timestamp-cleanup",
+        "ignore_missing_pipeline": true,
+        "ignore_failure": true
+      }
+    },
     {
       "set": {
         "field": "source.ip",
