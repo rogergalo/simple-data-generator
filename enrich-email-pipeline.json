@@ -250,6 +250,13 @@
         "ignore_missing_pipeline": true,
         "ignore_failure": true
       }
+    },
+        {
+      "pipeline": {
+        "name": "timestamp-cleanup",
+        "ignore_missing_pipeline": true,
+        "ignore_failure": true
+      }
     }
   ]
 }
