@@ -63,7 +63,7 @@ workloads:
     fields:
       - name: proxcode
         type: int
-        range: 1,87
+        range: 69,87
 
       - name: ripcodes
         type: int
