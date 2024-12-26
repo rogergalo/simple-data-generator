@@ -2334,7 +2334,10 @@ curl -X PUT "http://localhost:30920/_index_template/bluecoat" -H "Content-Type: 
             "event": {
               "type": "object",
               "properties": {
-                "kind": {
+                "ingested": {
+              	  "type": "date"
+            	},
+		"kind": {
                   "type": "keyword"
                 },
                 "module": {
@@ -2703,7 +2706,10 @@ curl -X PUT "http://localhost:30920/_index_template/email" -H "Content-Type: app
         "event": {
           "type": "object",
           "properties": {
-            "action": {
+            "ingested": {
+              "type": "date"
+            },
+	    "action": {
               "type": "keyword"
             },
             "category": {
