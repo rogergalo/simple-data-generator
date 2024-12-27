@@ -2891,4 +2891,4 @@ sleep 2
 # Clear the screen
 clear
 
-bash simple-data-generator/track1.sh
+bash simple-data-generator/rdp.sh
