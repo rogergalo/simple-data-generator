@@ -1,3 +1,23 @@
+#!/bin/bash 
+sudo apt update -y
+sudo apt install cowsay -y
+sudo apt install cmatrix -y
+
+# The line to add to ~/.bashrc
+line_to_add='export PATH=$PATH:/usr/games'
+
+# Check if the line already exists in .bashrc to avoid duplicates
+if ! grep -Fxq "$line_to_add" ~/.bashrc; then
+    # Append the line to the bottom of ~/.bashrc
+    echo "$line_to_add" >> ~/.bashrc
+    echo "Line added to ~/.bashrc"
+else
+    echo "Line already exists in ~/.bashrc"
+fi
+
+# Reload .bashrc to apply changes
+source ~/.bashrc
+
 # Clear the screen
 clear
 
