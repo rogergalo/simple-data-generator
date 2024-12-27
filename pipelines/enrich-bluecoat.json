@@ -1,0 +1,182 @@
+{
+  "description": "Bluecoat enrichment and normalization",
+  "processors": [
+    {
+      "enrich": {
+        "field": "proxcode",
+        "policy_name": "enrich-bluecoat",
+        "target_field": "bc",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "bc.event.action",
+        "target_field": "event.action",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "bc.event.category",
+        "target_field": "event.category",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "bc.event.dataset",
+        "target_field": "event.dataset",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "bc.event.kind",
+        "target_field": "event.kind",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "bc.event.module",
+        "target_field": "event.module",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "bc.event.outcome",
+        "target_field": "event.outcome",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "bc.event.type",
+        "target_field": "event.type",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "bc.proxy.category",
+        "target_field": "proxy.category",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "data_stream.dataset",
+        "ignore_failure": true,
+        "copy_from": "event.dataset"
+      }
+    },
+    {
+      "enrich": {
+        "field": "ripcodes",
+        "policy_name": "remote-ips",
+        "target_field": "rips",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "rips.rip1",
+        "target_field": "rip1",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "destination.ip",
+        "value": "{{rip1}}.{{rip2}}.{{rip3}}.{{rip4}}",
+        "ignore_failure": true
+      }
+    },
+    {
+      "geoip": {
+        "field": "destination.ip",
+        "target_field": "destination.geo",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "source.ip",
+        "value": "{{2rip1}}.{{2rip2}}.{{2rip3}}.{{2rip4}}",
+        "ignore_failure": true
+      }
+    },
+    {
+      "remove": {
+        "field": [
+          "rips.ripcodes",
+          "ripcodes",
+          "rip4",
+          "rip3",
+          "rip2",
+          "rip1",
+          "proxcode",
+          "bc.proxcode",
+          "2rip4",
+          "2rip3",
+          "2rip2",
+          "2rip1"
+        ],
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "proxyrequestbytes",
+        "target_field": "proxy.request.bytes",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "proxyresponsebytes",
+        "target_field": "proxy.response.bytes",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "proxyrequesturl",
+        "target_field": "proxy.request.url",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "set": {
+        "field": "source.ip",
+        "value": "10.49.110.17",
+        "if": "(ctx.proxy?.category == 'Proxy Avoidance' || ctx.proxy?.category == 'Dynamic DNS Host' || ctx.proxy?.category == 'Chat/Instant Messaging' || ctx.proxy?.category == 'Malicious Outbound Data/Botnets' || ctx.proxy?.category == 'Malicious Sources') && ctx.event?.action == 'TCP_TUNNEL'"
+      }
+    },
+     {
+    "pipeline": {
+      "name": "timestamp-cleanup",
+      "ignore_missing_pipeline": true,
+      "ignore_failure": true
+    }
+  } 
+  ]
+}
