@@ -71,6 +71,51 @@
         "ignore_failure": true,
         "description": "Suspicious data quarantine reason"
       }
+    },
+    {
+      "set": {
+        "field": "destination.ip",
+        "value": "10.49.110.17",
+        "if": "ctx?.email?.direction == 'inbound' && ctx.email?.attachments?.file?.extension == 'pdf' && ctx.email?.attachments?.file?.size >= 40000",
+        "ignore_failure": true,
+        "description": "Specify the culprit's IP"
+      }
+    },
+    {
+      "set": {
+        "field": "email.attachments.file.extension",
+        "value": "exe",
+        "if": "ctx?.email?.direction == 'inbound' && ctx.email?.attachments?.file?.extension == 'pdf' && ctx.email?.attachments?.file?.size >= 40000",
+        "ignore_failure": true,
+        "description": "Specify the malware extension"
+      }
+    },
+    {
+      "set": {
+        "field": "email.attachments.file.size",
+        "value": "781408",
+        "if": "ctx?.email?.direction == 'inbound' && ctx.destination?.ip == '10.49.110.17'",
+        "ignore_failure": true,
+        "description": "Specify the file size"
+      }
+    },
+    {
+      "set": {
+        "field": "email.attachments.file.hash.md5",
+        "value": "9850e40113081ebe639af61c572c89e5",
+        "if": "ctx?.email?.direction == 'inbound' && ctx.destination?.ip == '10.49.110.17'",
+        "ignore_failure": true,
+        "description": "Specify the file md5"
+      }
+    },
+    {
+      "set": {
+        "field": "email.attachments.file.hash.sha256",
+        "value": "8aa4945b71a16b0d6dcbe9c5169f0e21470d010be70368d334f34974bd7761e4",
+        "if": "ctx?.email?.direction == 'inbound' && ctx.destination?.ip == '10.49.110.17'",
+        "ignore_failure": true,
+        "description": "Specify the file sha256"
+      }
     }
   ]
 }
