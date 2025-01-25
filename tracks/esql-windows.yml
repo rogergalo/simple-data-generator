@@ -1,0 +1,57 @@
+elasticsearchScheme: http
+elasticsearchHost: localhost
+elasticsearchPort: 30920
+elasticsearchUser: sdg
+elasticsearchPassword: changeme
+workloads:
+  - workloadName: windows-system-esql
+    workloadThreads: 1
+    workloadSleep: 10
+    indexName: winlogbeat-default
+    fields:
+      - name: eventcategory
+        type: random_string_from_list
+        custom_list: iam,authentication,process,configuration,driver,registry
+
+      - name: wincode
+        type: int
+        range: 1,422
+
+      - name: processname
+        type: path
+
+      - name: parentprocessname
+        type: path
+
+      - name: eventtype
+        type: random_string_from_list
+        custom_list: access,admin,allowed,change,connection,creation,deletion,denied,end,error,group,indicator,info,installation,protocol,start,user
+
+      - name: 2rip1
+        type: int
+        range: 10,10
+
+      - name: 2rip2
+        type: int
+        range: 0,0
+
+      - name: 2rip3
+        type: int
+        range: 100,100
+
+      - name: 2rip4
+        type: int
+        range: 0,20
+
+      - name: processpename
+        type: path        
+
+      - name: processargs
+        type: appname
+
+      - name: registry1
+        type: appname
+
+      - name: registry2
+        type: appname        
+        
