@@ -414,7 +414,14 @@ curl -X PUT "http://localhost:30920/_index_template/winlogbeat" -H "Content-Type
           }
         },
         "message": {
-          "type": "text"
+          "type": "text",
+          "index": true,
+          "index_options": "positions",
+          "eager_global_ordinals": false,
+          "index_phrases": false,
+          "norms": true,
+          "fielddata": false,
+          "store": false
         },
         "parent": {
           "type": "object",
