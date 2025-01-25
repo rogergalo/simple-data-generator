@@ -181,6 +181,13 @@
         "target_field": "destination.geo"
       }
     },
+     {
+      "geoip": {
+        "ignore_failure": true,
+        "field": "source.ip",
+        "target_field": "source.geo"
+      }
+    }, 
     {
       "pipeline": {
         "name": "logs-network_traffic-cleanup",
