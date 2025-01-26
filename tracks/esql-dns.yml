@@ -5,7 +5,7 @@ elasticsearchUser: sdg
 elasticsearchPassword: changeme
 workloads:
   - workloadName: network-dns
-    workloadThreads: 8
+    workloadThreads: 2
     workloadSleep: 10
     indexName: logs-network_traffic.dns-default
     fields:
