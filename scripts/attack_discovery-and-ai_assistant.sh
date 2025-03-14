@@ -2202,4 +2202,4 @@ echo
 echo 
 echo
 echo "Starting data ingestion, press CTRL + C to unplug from the Matrix."
-java -jar /root/simple-data-generator/build/libs/simple-data-generator-1.0.0-SNAPSHOT.jar /root/simple-data-generator/tracks/attack_discovery-and-ai_assistant.yml
+java -jar /root/simple-data-generator/build/libs/simple-data-generator-1.0.0-SNAPSHOT.jar /root/simple-data-generator/tracks/ad-ai-assistant.yml
