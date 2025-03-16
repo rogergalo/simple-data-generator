@@ -1,5 +1,5 @@
 { "index": { "_index": "enrich-user_agents", "_id": "1"}}
-{"user_agent":{"os":{"full":"python-requests/2.32.2}}","code":1}
+{"user_agent":{"os":{"full":"python-requests/2.32.2"}},"code":1}
 { "index": { "_index": "enrich-user_agents", "_id": "2"}}
 {"user_agent":{"os":{"full":"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0C; .NET4.0E; 360SE)"}},"code":2}
 { "index": { "_index": "enrich-user_agents", "_id": "3"}}
