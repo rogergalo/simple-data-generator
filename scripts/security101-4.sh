@@ -2137,7 +2137,7 @@ clear
 echo "Loading Elastic Rules"
 curl -X PUT "http://localhost:30001/api/detection_engine/rules/prepackaged" -u "sdg:changme"  --header "kbn-xsrf: true" -H "Content-Type: application/json"  -d '{}'
 
-curl -X PUT "http://localhost:30920/api/detection_engine/rules" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
+curl -X POST "http://localhost:30920/api/detection_engine/rules" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @- << 'EOF'
 {
       "name": "Potential Remote Desktop Shadowing Activity",
       "tags": [
@@ -2280,7 +2280,9 @@ curl -X PUT "http://localhost:30920/api/detection_engine/rules" -H "Content-Type
       "query": "/* Identifies the modification of RDP Shadow registry or\n  the execution of processes indicative of active shadow RDP session */\n\nany where host.os.type == \"windows\" and\n(\n  (event.category == \"registry\" and\n     registry.path : (\n      \"HKLM\\\\Software\\\\Policies\\\\Microsoft\\\\Windows NT\\\\Terminal Services\\\\Shadow\",\n      \"\\\\REGISTRY\\\\MACHINE\\\\Software\\\\Policies\\\\Microsoft\\\\Windows NT\\\\Terminal Services\\\\Shadow\",\n      \"MACHINE\\\\Software\\\\Policies\\\\Microsoft\\\\Windows NT\\\\Terminal Services\\\\Shadow\"\n    )\n  ) or\n  (event.category == \"process\" and event.type == \"start\" and\n     (process.name : (\"RdpSaUacHelper.exe\", \"RdpSaProxy.exe\") and process.parent.name : \"svchost.exe\") or\n     (?process.pe.original_file_name : \"mstsc.exe\" and process.args : \"/shadow:*\")\n  )\n)\n",
       "actions": []
     }
-EOF    
+EOF
+
+sleep 2
 
 sudo apt update -y
 sudo apt install cowsay -y
