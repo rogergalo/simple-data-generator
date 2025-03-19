@@ -2166,6 +2166,7 @@ curl -X POST "http://localhost:30920/api/detection_engine/rules" -u "sdg:changem
       ],
       "false_positives": [],
       "from": "now-9m",
+      "rule_id": "101-1",
       "max_signals": 100,
       "risk_score_mapping": [],
       "severity_mapping": [],
