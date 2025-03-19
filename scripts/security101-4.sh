@@ -2137,9 +2137,9 @@ clear
 echo "Loading Elastic Rules"
 curl -X PUT "http://localhost:30001/api/detection_engine/rules/prepackaged" -u "sdg:changme"  --header "kbn-xsrf: true" -H "Content-Type: application/json"  -d '{}'
 
-curl -X POST "http://localhost:30920/api/detection_engine/rules" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @- << 'EOF'
+curl -X POST "http://localhost:30001/api/detection_engine/rules" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @- << 'EOF'
 {
-      "name": "Potential Remote Desktop Shadowing Activity",
+      "name": "Remote Desktop Hijacking Activity",
       "tags": [
         "Domain: Endpoint",
         "OS: Windows",
