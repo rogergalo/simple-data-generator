@@ -1,0 +1,20 @@
+  {
+  "tags": [
+    "Malware Outbreak"
+  ],
+  "owner": "securitySolution",
+  "title": "Malware Outbreak",
+  "severity": "high",
+  "settings": {
+    "syncAlerts": true
+  },
+  "connector": {
+    "id": "none",
+    "name": "none",
+    "type": ".none",
+    "fields": null
+  },
+  "description": "Suspected Malware Outbreak after cd-tray.exe installed on Mrs. Mildred Wigglesworth's computer from a USB stick she found on the walk to work.",
+  "customFields": [
+  ]
+}
