@@ -1,0 +1,21 @@
+ {
+  "tags": [
+    "DDoS"
+  ],
+  "owner": "securitySolution",
+  "title": "DDoS Event",
+  "severity": "medium",
+  "status": "closed",
+  "settings": {
+    "syncAlerts": true
+  },
+  "connector": {
+    "id": "none",
+    "name": "none",
+    "type": ".none",
+    "fields": null
+  },
+  "description": "DDoS attack resulted in minimal degradation of services, latency increased 50%, but countermeasures were successfully employed.",
+  "customFields": [
+  ]
+}
