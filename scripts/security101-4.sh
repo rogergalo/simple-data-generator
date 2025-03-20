@@ -2141,8 +2141,14 @@ curl -X POST "http://localhost:30001/api/detection_engine/rules/_bulk_create" -u
 
 clear
 
+echo
+echo
 echo "Elastic rules deployed and enabled, now hunting for malicious activity."
-
+echo
+echo
+echo "Preparing to begin data generation..."
+echo
+echo
 sleep 2
 
 sudo apt update -y
@@ -2206,11 +2212,12 @@ clear
 
 
 
-
-echo "Elastic Security says: 'Feed me malware!!!!'"
+echo
+echo
+echo "Elastic Security says: Feed me malware!!!!"
 echo 
 echo
 echo 
 echo
-echo "Starting data ingestion, press CTRL + C to unplug from the Matrix."
+echo "Press CTRL + C to unplug from the Matrix and cease data ingestion if necessary."
 java -jar /root/simple-data-generator/build/libs/simple-data-generator-1.0.0-SNAPSHOT.jar /root/simple-data-generator/tracks/ad-ai-assistant.yml
