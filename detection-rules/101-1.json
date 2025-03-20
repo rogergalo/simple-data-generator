@@ -1,251 +1,248 @@
-{
-  "rules": [
-{
-      "name": "Remote Desktop Hijacking Activity",
-      "tags": [
-        "Domain: Endpoint",
-        "OS: Windows",
-        "Use Case: Threat Detection",
-        "Tactic: Lateral Movement",
-        "Data Source: Elastic Endgame",
-        "Data Source: Elastic Defend",
-        "Data Source: Sysmon",
-        "Data Source: Microsoft Defender for Endpoint",
-        "Data Source: SentinelOne",
-        "Resources: Investigation Guide"
-      ],
-      "interval": "5m",
-      "enabled": true,
-      "revision": 0,
-      "description": "Identifies the modification of the Remote Desktop Protocol (RDP) Shadow registry or the execution of processes indicative of an active RDP shadowing session. An adversary may abuse the RDP Shadowing feature to spy on or control other users active RDP sessions.",
-      "risk_score": 73,
-      "severity": "high",
-      "license": "Elastic License v2",
-      "output_index": "",
-      "timestamp_override": "event.ingested",
-      "author": [
-        "Elastic"
-      ],
-      "false_positives": [],
-      "from": "now-9m",
-      "rule_id": "101-1",
-      "max_signals": 100,
-      "risk_score_mapping": [],
-      "severity_mapping": [],
-      "threat": [
-        {
-          "framework": "MITRE ATT&CK",
-          "tactic": {
-            "id": "TA0008",
-            "name": "Lateral Movement",
-            "reference": "https://attack.mitre.org/tactics/TA0008/"
-          },
-          "technique": [
-            {
-              "id": "T1021",
-              "name": "Remote Services",
-              "reference": "https://attack.mitre.org/techniques/T1021/",
-              "subtechnique": [
-                {
-                  "id": "T1021.001",
-                  "name": "Remote Desktop Protocol",
-                  "reference": "https://attack.mitre.org/techniques/T1021/001/"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "to": "now",
-      "references": [
-        "https://bitsadm.in/blog/spying-on-users-using-rdp-shadowing",
-        "https://swarm.ptsecurity.com/remote-desktop-services-shadowing/"
-      ],
-      "version": 310,
-      "exceptions_list": [],
-      "immutable": true,
-      "rule_source": {
-        "type": "external",
-        "is_customized": false
+[
+  {
+    "name": "Remote Desktop Hijacking Activity",
+    "tags": [
+      "Domain: Endpoint",
+      "OS: Windows",
+      "Use Case: Threat Detection",
+      "Tactic: Lateral Movement",
+      "Data Source: Elastic Endgame",
+      "Data Source: Elastic Defend",
+      "Data Source: Sysmon",
+      "Data Source: Microsoft Defender for Endpoint",
+      "Data Source: SentinelOne",
+      "Resources: Investigation Guide"
+    ],
+    "interval": "5m",
+    "enabled": true,
+    "revision": 0,
+    "description": "Identifies the modification of the Remote Desktop Protocol (RDP) Shadow registry or the execution of processes indicative of an active RDP shadowing session. An adversary may abuse the RDP Shadowing feature to spy on or control other users active RDP sessions.",
+    "risk_score": 73,
+    "severity": "high",
+    "license": "Elastic License v2",
+    "output_index": "",
+    "timestamp_override": "event.ingested",
+    "author": [
+      "Elastic"
+    ],
+    "false_positives": [],
+    "from": "now-9m",
+    "rule_id": "101-1",
+    "max_signals": 100,
+    "risk_score_mapping": [],
+    "severity_mapping": [],
+    "threat": [
+      {
+        "framework": "MITRE ATT&CK",
+        "tactic": {
+          "id": "TA0008",
+          "name": "Lateral Movement",
+          "reference": "https://attack.mitre.org/tactics/TA0008/"
+        },
+        "technique": [
+          {
+            "id": "T1021",
+            "name": "Remote Services",
+            "reference": "https://attack.mitre.org/techniques/T1021/",
+            "subtechnique": [
+              {
+                "id": "T1021.001",
+                "name": "Remote Desktop Protocol",
+                "reference": "https://attack.mitre.org/techniques/T1021/001/"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "to": "now",
+    "references": [
+      "https://bitsadm.in/blog/spying-on-users-using-rdp-shadowing",
+      "https://swarm.ptsecurity.com/remote-desktop-services-shadowing/"
+    ],
+    "version": 310,
+    "exceptions_list": [],
+    "immutable": true,
+    "rule_source": {
+      "type": "external",
+      "is_customized": false
+    },
+    "related_integrations": [
+      {
+        "package": "endpoint",
+        "version": "^8.2.0"
       },
-      "related_integrations": [
-        {
-          "package": "endpoint",
-          "version": "^8.2.0"
-        },
-        {
-          "package": "windows",
-          "version": "^2.0.0"
-        },
-        {
-          "package": "m365_defender",
-          "version": "^2.0.0"
-        },
-        {
-          "package": "sentinel_one_cloud_funnel",
-          "version": "^1.0.0"
-        }
-      ],
-      "required_fields": [
-        {
-          "name": "event.category",
-          "type": "keyword",
-          "ecs": true
-        },
-        {
-          "name": "event.type",
-          "type": "keyword",
-          "ecs": true
-        },
-        {
-          "name": "host.os.type",
-          "type": "keyword",
-          "ecs": true
-        },
-        {
-          "name": "process.args",
-          "type": "keyword",
-          "ecs": true
-        },
-        {
-          "name": "process.name",
-          "type": "keyword",
-          "ecs": true
-        },
-        {
-          "name": "process.parent.name",
-          "type": "keyword",
-          "ecs": true
-        },
-        {
-          "name": "process.pe.original_file_name",
-          "type": "keyword",
-          "ecs": true
-        },
-        {
-          "name": "registry.path",
-          "type": "keyword",
-          "ecs": true
-        }
-      ],
-      "setup": "",
-      "type": "eql",
-      "language": "eql",
-      "index": [
-        "logs-endpoint.events.process-*",
-        "logs-endpoint.events.registry-*",
-        "winlogbeat-*",
-        "logs-windows.sysmon_operational-*",
-        "endgame-*",
-        "logs-m365_defender.event-*",
-        "logs-sentinel_one_cloud_funnel.*"
-      ],
-      "query": "/* Identifies the modification of RDP Shadow registry or\n  the execution of processes indicative of active shadow RDP session */\n\nany where host.os.type == \"windows\" and\n(\n  (event.category == \"registry\" and\n     registry.path : (\n      \"HKLM\\\\Software\\\\Policies\\\\Microsoft\\\\Windows NT\\\\Terminal Services\\\\Shadow\",\n      \"\\\\REGISTRY\\\\MACHINE\\\\Software\\\\Policies\\\\Microsoft\\\\Windows NT\\\\Terminal Services\\\\Shadow\",\n      \"MACHINE\\\\Software\\\\Policies\\\\Microsoft\\\\Windows NT\\\\Terminal Services\\\\Shadow\"\n    )\n  ) or\n  (event.category == \"process\" and event.type == \"start\" and\n     (process.name : (\"RdpSaUacHelper.exe\", \"RdpSaProxy.exe\") and process.parent.name : \"svchost.exe\") or\n     (?process.pe.original_file_name : \"mstsc.exe\" and process.args : \"/shadow:*\")\n  )\n)\n",
-      "actions": []
-    }
-{
-      "name": "Malware Detected - Host Isolated",
-      "tags": [
-        "Domain: Network",
-        "Domain: Endpoint",
-        "Data Source: Elastic Defend",
-        "Use Case: Domain Generation Algorithm Detection",
-        "Rule Type: ML",
-        "Rule Type: Machine Learning",
-        "Tactic: Command and Control",
-        "Resources: Investigation Guide"
-      ],
-      "interval": "5m",
-      "enabled": true,
-      "revision": 0,
-      "description": "A supervised machine learning model has identified beaconing activity referenced to a known threat-actor; this host has been isolated automatically.",
-      "risk_score": 99,
-      "severity": "critical",
-      "license": "Elastic License v2",
-      "output_index": "",
-      "timestamp_override": "event.ingested",
-      "author": [
-        "Elastic"
-      ],
-      "false_positives": [],
-      "from": "now-10m",
-      "rule_id": "101-2",
-      "max_signals": 100,
-      "risk_score_mapping": [],
-      "severity_mapping": [],
-      "threat": [
-        {
-          "framework": "MITRE ATT&CK",
-          "tactic": {
-            "id": "TA0011",
-            "name": "Command and Control",
-            "reference": "https://attack.mitre.org/tactics/TA0011/"
-          },
-          "technique": [
-            {
-              "id": "T1568",
-              "name": "Dynamic Resolution",
-              "reference": "https://attack.mitre.org/techniques/T1568/",
-              "subtechnique": [
-                {
-                  "id": "T1568.002",
-                  "name": "Domain Generation Algorithms",
-                  "reference": "https://attack.mitre.org/techniques/T1568/002/"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "to": "now",
-      "references": [
-        "https://www.elastic.co/guide/en/security/current/prebuilt-ml-jobs.html",
-        "https://docs.elastic.co/en/integrations/dga",
-        "https://www.elastic.co/security-labs/detect-domain-generation-algorithm-activity-with-new-kibana-integration"
-      ],
-      "version": 6,
-      "exceptions_list": [],
-      "immutable": true,
-      "rule_source": {
-        "type": "external",
-        "is_customized": false
+      {
+        "package": "windows",
+        "version": "^2.0.0"
       },
-      "related_integrations": [
-        {
-          "package": "dga",
-          "version": "^2.0.0"
+      {
+        "package": "m365_defender",
+        "version": "^2.0.0"
+      },
+      {
+        "package": "sentinel_one_cloud_funnel",
+        "version": "^1.0.0"
+      }
+    ],
+    "required_fields": [
+      {
+        "name": "event.category",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "event.type",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "host.os.type",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "process.args",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "process.name",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "process.parent.name",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "process.pe.original_file_name",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "registry.path",
+        "type": "keyword",
+        "ecs": true
+      }
+    ],
+    "setup": "",
+    "type": "eql",
+    "language": "eql",
+    "index": [
+      "logs-endpoint.events.process-*",
+      "logs-endpoint.events.registry-*",
+      "winlogbeat-*",
+      "logs-windows.sysmon_operational-*",
+      "endgame-*",
+      "logs-m365_defender.event-*",
+      "logs-sentinel_one_cloud_funnel.*"
+    ],
+    "query": "/* Identifies the modification of RDP Shadow registry or\n  the execution of processes indicative of active shadow RDP session */\n\nany where host.os.type == \"windows\" and\n(\n  (event.category == \"registry\" and\n     registry.path : (\n      \"HKLM\\\\Software\\\\Policies\\\\Microsoft Windows NT\\\\Terminal Services\\\\Shadow\",\n      \"\\\\REGISTRY\\\\MACHINE\\\\Software\\\\Policies\\\\Microsoft Windows NT\\\\Terminal Services\\\\Shadow\",\n      \"MACHINE\\\\Software\\\\Policies\\\\Microsoft Windows NT\\\\Terminal Services\\\\Shadow\"\n    )\n  ) or\n  (event.category == \"process\" and event.type == \"start\" and\n     (process.name : (\"RdpSaUacHelper.exe\", \"RdpSaProxy.exe\") and process.parent.name : \"svchost.exe\") or\n     (?process.pe.original_file_name : \"mstsc.exe\" and process.args : \"/shadow:*\")\n  )\n)\n",
+    "actions": []
+  },
+  {
+    "name": "Malware Detected - Host Isolated",
+    "tags": [
+      "Domain: Network",
+      "Domain: Endpoint",
+      "Data Source: Elastic Defend",
+      "Use Case: Domain Generation Algorithm Detection",
+      "Rule Type: ML",
+      "Rule Type: Machine Learning",
+      "Tactic: Command and Control",
+      "Resources: Investigation Guide"
+    ],
+    "interval": "5m",
+    "enabled": true,
+    "revision": 0,
+    "description": "A supervised machine learning model has identified beaconing activity referenced to a known threat-actor; this host has been isolated automatically.",
+    "risk_score": 99,
+    "severity": "critical",
+    "license": "Elastic License v2",
+    "output_index": "",
+    "timestamp_override": "event.ingested",
+    "author": [
+      "Elastic"
+    ],
+    "false_positives": [],
+    "from": "now-10m",
+    "rule_id": "101-2",
+    "max_signals": 100,
+    "risk_score_mapping": [],
+    "severity_mapping": [],
+    "threat": [
+      {
+        "framework": "MITRE ATT&CK",
+        "tactic": {
+          "id": "TA0011",
+          "name": "Command and Control",
+          "reference": "https://attack.mitre.org/tactics/TA0011/"
         },
-        {
-          "package": "endpoint",
-          "version": "^8.2.0"
-        },
-        {
-          "package": "network_traffic",
-          "version": "^1.1.0"
-        }
-      ],
-      "required_fields": [
-        {
-          "name": "dns.question.registered_domain",
-          "type": "keyword",
-          "ecs": true
-        },
-        {
-          "name": "ml_is_dga.malicious_prediction",
-          "type": "unknown",
-          "ecs": false
-        }
-      ],
-      "setup": "## Setup\n\nThe rule requires the Domain Generation Algorithm (DGA) Detection integration assets to be installed, as well as DNS events collected by integrations such as Elastic Defend, Network Packet Capture, or Packetbeat.\n\n### DGA Detection Setup\nThe DGA Detection integration consists of an ML-based framework to detect DGA activity in DNS events.\n\n#### Prerequisite Requirements:\n- Fleet is required for DGA Detection.\n- To configure Fleet Server refer to the [documentation](https://www.elastic.co/guide/en/fleet/current/fleet-server.html).\n- DNS events collected by the [Elastic Defend](https://docs.elastic.co/en/integrations/endpoint), [Network Packet Capture](https://docs.elastic.co/integrations/network_traffic) integration, or [Packetbeat](https://www.elastic.co/guide/en/beats/packetbeat/current/packetbeat-overview.html).\n- To install Elastic Defend, refer to the [documentation](https://www.elastic.co/guide/en/security/current/install-endpoint.html).\n- To add the Network Packet Capture integration to an Elastic Agent policy, refer to [this](https://www.elastic.co/guide/en/fleet/current/add-integration-to-policy.html) guide.\n- To set up and run Packetbeat, follow [this](https://www.elastic.co/guide/en/beats/packetbeat/current/setting-up-and-running.html) guide.\n\n#### The following steps should be executed to install assets associated with the DGA Detection integration:\n- Go to the Kibana homepage. Under Management, click Integrations.\n- In the query bar, search for Domain Generation Algorithm Detection and select the integration to see more details about it.\n- Follow the instructions under the **Installation** section.\n- For this rule to work, complete the instructions through **Configure the ingest pipeline**.\n",
-      "type": "query",
-      "language": "kuery",
-      "index": [
-        "logs-endpoint.events.*",
-        "logs-network_traffic.*"
-      ],
-      "query": "ml_is_dga.malicious_prediction:1 and dns.question.registered_domain:avsvmcloud.com\n",
-      "actions": [],
-    }
-    # NEW RULE GOES HERE
-  ]
-}
+        "technique": [
+          {
+            "id": "T1568",
+            "name": "Dynamic Resolution",
+            "reference": "https://attack.mitre.org/techniques/T1568/",
+            "subtechnique": [
+              {
+                "id": "T1568.002",
+                "name": "Domain Generation Algorithms",
+                "reference": "https://attack.mitre.org/techniques/T1568/002/"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "to": "now",
+    "references": [
+      "https://www.elastic.co/guide/en/security/current/prebuilt-ml-jobs.html",
+      "https://docs.elastic.co/en/integrations/dga",
+      "https://www.elastic.co/security-labs/detect-domain-generation-algorithm-activity-with-new-kibana-integration"
+    ],
+    "version": 6,
+    "exceptions_list": [],
+    "immutable": true,
+    "rule_source": {
+      "type": "external",
+      "is_customized": false
+    },
+    "related_integrations": [
+      {
+        "package": "dga",
+        "version": "^2.0.0"
+      },
+      {
+        "package": "endpoint",
+        "version": "^8.2.0"
+      },
+      {
+        "package": "network_traffic",
+        "version": "^1.1.0"
+      }
+    ],
+    "required_fields": [
+      {
+        "name": "dns.question.registered_domain",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "ml_is_dga.malicious_prediction",
+        "type": "unknown",
+        "ecs": false
+      }
+    ],
+    "setup": "## Setup\n\nThe rule requires the Domain Generation Algorithm (DGA) Detection integration assets to be installed, as well as DNS events collected by integrations such as Elastic Defend, Network Packet Capture, or Packetbeat.\n\n### DGA Detection Setup\nThe DGA Detection integration consists of an ML-based framework to detect DGA activity in DNS events.\n\n#### Prerequisite Requirements:\n- Fleet is required for DGA Detection.\n- To configure Fleet Server refer to the [documentation](https://www.elastic.co/guide/en/fleet/current/fleet-server.html).\n- DNS events collected by the [Elastic Defend](https://docs.elastic.co/en/integrations/endpoint), [Network Packet Capture](https://docs.elastic.co/integrations/network_traffic) integration, or [Packetbeat](https://www.elastic.co/guide/en/beats/packetbeat/current/packetbeat-overview.html).\n- To install Elastic Defend, refer to the [documentation](https://www.elastic.co/guide/en/security/current/install-endpoint.html).\n- To add the Network Packet Capture integration to an Elastic Agent policy, refer to [this](https://www.elastic.co/guide/en/fleet/current/add-integration-to-policy.html) guide.\n- To set up and run Packetbeat, follow [this](https://www.elastic.co/guide/en/beats/packetbeat/current/setting-up-and-running.html) guide.\n\n#### The following steps should be executed to install assets associated with the DGA Detection integration:\n- Go to the Kibana homepage. Under Management, click Integrations.\n- In the query bar, search for Domain Generation Algorithm Detection and select the integration to see more details about it.\n- Follow the instructions under the **Installation** section.\n- For this rule to work, complete the instructions through **Configure the ingest pipeline**.\n",
+    "type": "query",
+    "language": "kuery",
+    "index": [
+      "logs-endpoint.events.*",
+      "logs-network_traffic.*"
+    ],
+    "query": "ml_is_dga.malicious_prediction:1 and dns.question.registered_domain:avsvmcloud.com\n",
+    "actions": []
+  }
+]
