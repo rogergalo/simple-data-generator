@@ -154,7 +154,7 @@
       "Tactic: Command and Control",
       "Resources: Investigation Guide"
     ],
-    "": "30s",
+    "interval": "30s",
     "enabled": true,
     "revision": 0,
     "description": "A supervised machine learning model has identified beaconing activity referenced to a known threat-actor; this host has been isolated automatically.",
