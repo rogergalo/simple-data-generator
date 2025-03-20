@@ -1,0 +1,21 @@
+ {
+  "tags": [
+    "DDoS"
+  ],
+  "owner": "securitySolution",
+  "title": "Smishing Campaign",
+  "severity": "high",
+  "status": "closed",
+  "settings": {
+    "syncAlerts": true
+  },
+  "connector": {
+    "id": "none",
+    "name": "none",
+    "type": ".none",
+    "fields": null
+  },
+  "description": "90% of our workforce received text messages indicating their passwords required updating. Users were attempted to be routed to a malicious site; while a few users clicked none fortunately submitted credentials.",
+  "customFields": [
+  ]
+}
