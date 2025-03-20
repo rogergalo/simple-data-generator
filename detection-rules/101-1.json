@@ -13,7 +13,7 @@
       "Data Source: SentinelOne",
       "Resources: Investigation Guide"
     ],
-    "interval": "5m",
+    "interval": "30s",
     "enabled": true,
     "revision": 0,
     "description": "Identifies the modification of the Remote Desktop Protocol (RDP) Shadow registry or the execution of processes indicative of an active RDP shadowing session. An adversary may abuse the RDP Shadowing feature to spy on or control other users active RDP sessions.",
@@ -154,7 +154,7 @@
       "Tactic: Command and Control",
       "Resources: Investigation Guide"
     ],
-    "interval": "5m",
+    "": "30s",
     "enabled": true,
     "revision": 0,
     "description": "A supervised machine learning model has identified beaconing activity referenced to a known threat-actor; this host has been isolated automatically.",
@@ -167,7 +167,7 @@
       "Elastic"
     ],
     "false_positives": [],
-    "from": "now-10m",
+    "from": "now-5m",
     "rule_id": "101-2",
     "max_signals": 100,
     "risk_score_mapping": [],
@@ -259,7 +259,7 @@
       "Data Source: SentinelOne",
       "Resources: Investigation Guide"
     ],
-    "interval": "5m",
+    "interval": "30s",
     "enabled": true,
     "revision": 0,
     "description": "Identifies the requests of privilege escalations from portable applications or non-human interactions.",
@@ -272,7 +272,7 @@
       "Elastic"
     ],
     "false_positives": [],
-    "from": "now-9m",
+    "from": "now-5m",
     "rule_id": "101-3",
     "max_signals": 100,
     "risk_score_mapping": [],
@@ -402,7 +402,7 @@
       "Tactic: Exfiltration",
       "Resources: Investigation Guide"
     ],
-    "interval": "5m",
+    "interval": "30s",
     "enabled": true,
     "revision": 0,
     "description": "A supervised machine learning model has identified a user logging into multiple corporate devices in geographically separated locations without using the corporate VPN.",
