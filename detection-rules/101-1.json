@@ -263,8 +263,8 @@
     "enabled": true,
     "revision": 0,
     "description": "Identifies the requests of privilege escalations from portable applications or non-human interactions.",
-    "risk_score": 80,
-    "severity": "high",
+    "risk_score": 35,
+    "severity": "low",
     "license": "Elastic License v2",
     "output_index": "",
     "timestamp_override": "event.ingested",
@@ -397,17 +397,17 @@
       "Use Case: UEBA",
       "Rule Type: ML",
       "Rule Type: Machine Learning",
-	  "Rule Type: Higher-Order Rule",
+      "Rule Type: Higher-Order Rule",
       "Tactic: Initial Access",
-	  "Tactic: Exfiltration",
+      "Tactic: Exfiltration",
       "Resources: Investigation Guide"
     ],
     "interval": "5m",
     "enabled": true,
     "revision": 0,
     "description": "A supervised machine learning model has identified a user logging into multiple corporate devices in geographically separated locations without using the corporate VPN.",
-    "risk_score": 99,
-    "severity": "critical",
+    "risk_score": 66,
+    "severity": "medium",
     "license": "Elastic License v2",
     "output_index": "",
     "timestamp_override": "event.ingested",
@@ -432,7 +432,7 @@
           {
             "id": "T1111",
             "name": "Multi-Factor Authentication Interceptions",
-            "reference": "https://attack.mitre.org/techniques/T1111/",
+            "reference": "https://attack.mitre.org/techniques/T1111/"
           }
         ]
       }
