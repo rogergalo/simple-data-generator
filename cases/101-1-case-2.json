@@ -1,0 +1,22 @@
+ {
+  "tags": [
+    "Unathorized Access",
+    "C-Level Credentials"
+  ],
+  "owner": "securitySolution",
+  "title": "Unauthorized CTO Credential Usage",
+  "severity": "critical",
+  "status": "in-progress",
+  "settings": {
+    "syncAlerts": true
+  },
+  "connector": {
+    "id": "none",
+    "name": "none",
+    "type": ".none",
+    "fields": null
+  },
+  "description": "Our CTO was recently the victim of a spear phishing campaign and his credentials are being used to access our development server for some code we are testing; this is highly abnormal.",
+  "customFields": [
+  ]
+}
