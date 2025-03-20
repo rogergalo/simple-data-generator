@@ -244,5 +244,246 @@
     ],
     "query": "ml_is_dga.malicious_prediction:1 and dns.question.registered_domain:avsvmcloud.com\n",
     "actions": []
+  },
+  {
+    "name": "Suspicious Application Privilege Request",
+    "tags": [
+      "Domain: Endpoint",
+      "OS: Windows",
+      "Use Case: Living off the Land Attack Detection",
+      "Tactic: Persistence",
+      "Data Source: Elastic Endgame",
+      "Data Source: Elastic Defend",
+      "Data Source: Sysmon",
+      "Data Source: Microsoft Defender for Endpoint",
+      "Data Source: SentinelOne",
+      "Resources: Investigation Guide"
+    ],
+    "interval": "5m",
+    "enabled": true,
+    "revision": 0,
+    "description": "Identifies the requests of privilege escalations from portable applications or non-human interactions.",
+    "risk_score": 80,
+    "severity": "high",
+    "license": "Elastic License v2",
+    "output_index": "",
+    "timestamp_override": "event.ingested",
+    "author": [
+      "Elastic"
+    ],
+    "false_positives": [],
+    "from": "now-9m",
+    "rule_id": "101-3",
+    "max_signals": 100,
+    "risk_score_mapping": [],
+    "severity_mapping": [],
+    "threat": [
+      {
+        "framework": "MITRE ATT&CK",
+        "tactic": {
+          "id": "TA0004",
+          "name": "Privilege Escalation",
+          "reference": "https://attack.mitre.org/tactics/TA0004/"
+        },
+        "technique": [
+          {
+            "id": "T1055",
+            "name": "Process Injection",
+            "reference": "https://attack.mitre.org/techniques/T1055/",
+            "subtechnique": [
+              {
+                "id": "T1055.002",
+                "name": "Portable Executable Injections",
+                "reference": "https://attack.mitre.org/techniques/T1055/002/"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "to": "now",
+    "references": [
+      "https://bitsadm.in/blog/spying-on-users-using-rdp-shadowing",
+      "https://swarm.ptsecurity.com/remote-desktop-services-shadowing/"
+    ],
+    "version": 310,
+    "exceptions_list": [],
+    "immutable": true,
+    "rule_source": {
+      "type": "external",
+      "is_customized": false
+    },
+    "related_integrations": [
+      {
+        "package": "endpoint",
+        "version": "^8.2.0"
+      },
+      {
+        "package": "windows",
+        "version": "^2.0.0"
+      },
+      {
+        "package": "m365_defender",
+        "version": "^2.0.0"
+      },
+      {
+        "package": "sentinel_one_cloud_funnel",
+        "version": "^1.0.0"
+      }
+    ],
+    "required_fields": [
+      {
+        "name": "event.category",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "event.type",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "host.os.type",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "process.args",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "process.name",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "process.parent.name",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "process.pe.original_file_name",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "registry.path",
+        "type": "keyword",
+        "ecs": true
+      }
+    ],
+    "setup": "",
+    "type": "eql",
+    "language": "eql",
+    "index": [
+      "logs-endpoint.events.process-*",
+      "logs-endpoint.events.registry-*",
+      "winlogbeat-*",
+      "logs-windows.sysmon_operational-*",
+      "endgame-*",
+      "logs-m365_defender.event-*",
+      "logs-sentinel_one_cloud_funnel.*"
+    ],
+    "query": "/* Identifies the modification of RDP Shadow registry or\n  the execution of processes indicative of active shadow RDP session */\n\nany where host.os.type == \"windows\" and\n(\n  (event.category == \"registry\" and\n     registry.path : (\n      \"HKLM\\\\Software\\\\Policies\\\\Microsoft Windows NT\\\\Terminal Services\\\\Shadow\",\n      \"\\\\REGISTRY\\\\MACHINE\\\\Software\\\\Policies\\\\Microsoft Windows NT\\\\Terminal Services\\\\Shadow\",\n      \"MACHINE\\\\Software\\\\Policies\\\\Microsoft Windows NT\\\\Terminal Services\\\\Shadow\"\n    )\n  ) or\n  (event.category == \"process\" and event.type == \"start\" and\n     (process.name : (\"RdpSaUacHelper.exe\", \"RdpSaProxy.exe\") and process.parent.name : \"svchost.exe\") or\n     (?process.pe.original_file_name : \"mstsc.exe\" and process.args : \"/shadow:*\")\n  )\n)\n",
+    "actions": []
+  },
+  {
+    "name": "Impossible Travel Detected",
+    "tags": [
+      "Domain: Network",
+      "Domain: Endpoint",
+      "Data Source: Elastic Defend",
+      "Use Case: UEBA",
+      "Rule Type: ML",
+      "Rule Type: Machine Learning",
+	  "Rule Type: Higher-Order Rule",
+      "Tactic: Initial Access",
+	  "Tactic: Exfiltration",
+      "Resources: Investigation Guide"
+    ],
+    "interval": "5m",
+    "enabled": true,
+    "revision": 0,
+    "description": "A supervised machine learning model has identified a user logging into multiple corporate devices in geographically separated locations without using the corporate VPN.",
+    "risk_score": 99,
+    "severity": "critical",
+    "license": "Elastic License v2",
+    "output_index": "",
+    "timestamp_override": "event.ingested",
+    "author": [
+      "Elastic"
+    ],
+    "false_positives": [],
+    "from": "now-10m",
+    "rule_id": "101-4",
+    "max_signals": 100,
+    "risk_score_mapping": [],
+    "severity_mapping": [],
+    "threat": [
+      {
+        "framework": "MITRE ATT&CK",
+        "tactic": {
+          "id": "TA0006",
+          "name": "Credential Access",
+          "reference": "https://attack.mitre.org/tactics/TA0006/"
+        },
+        "technique": [
+          {
+            "id": "T1111",
+            "name": "Multi-Factor Authentication Interceptions",
+            "reference": "https://attack.mitre.org/techniques/T1111/",
+          }
+        ]
+      }
+    ],
+    "to": "now",
+    "references": [
+      "https://www.elastic.co/guide/en/security/current/prebuilt-ml-jobs.html",
+      "https://docs.elastic.co/en/integrations/dga",
+      "https://www.elastic.co/security-labs/detect-domain-generation-algorithm-activity-with-new-kibana-integration"
+    ],
+    "version": 6,
+    "exceptions_list": [],
+    "immutable": true,
+    "rule_source": {
+      "type": "external",
+      "is_customized": false
+    },
+    "related_integrations": [
+      {
+        "package": "dga",
+        "version": "^2.0.0"
+      },
+      {
+        "package": "endpoint",
+        "version": "^8.2.0"
+      },
+      {
+        "package": "network_traffic",
+        "version": "^1.1.0"
+      }
+    ],
+    "required_fields": [
+      {
+        "name": "dns.question.registered_domain",
+        "type": "keyword",
+        "ecs": true
+      },
+      {
+        "name": "ml_is_dga.malicious_prediction",
+        "type": "unknown",
+        "ecs": false
+      }
+    ],
+    "setup": "## Setup\n\nThe rule requires the Domain Generation Algorithm (DGA) Detection integration assets to be installed, as well as DNS events collected by integrations such as Elastic Defend, Network Packet Capture, or Packetbeat.\n\n### DGA Detection Setup\nThe DGA Detection integration consists of an ML-based framework to detect DGA activity in DNS events.\n\n#### Prerequisite Requirements:\n- Fleet is required for DGA Detection.\n- To configure Fleet Server refer to the [documentation](https://www.elastic.co/guide/en/fleet/current/fleet-server.html).\n- DNS events collected by the [Elastic Defend](https://docs.elastic.co/en/integrations/endpoint), [Network Packet Capture](https://docs.elastic.co/integrations/network_traffic) integration, or [Packetbeat](https://www.elastic.co/guide/en/beats/packetbeat/current/packetbeat-overview.html).\n- To install Elastic Defend, refer to the [documentation](https://www.elastic.co/guide/en/security/current/install-endpoint.html).\n- To add the Network Packet Capture integration to an Elastic Agent policy, refer to [this](https://www.elastic.co/guide/en/fleet/current/add-integration-to-policy.html) guide.\n- To set up and run Packetbeat, follow [this](https://www.elastic.co/guide/en/beats/packetbeat/current/setting-up-and-running.html) guide.\n\n#### The following steps should be executed to install assets associated with the DGA Detection integration:\n- Go to the Kibana homepage. Under Management, click Integrations.\n- In the query bar, search for Domain Generation Algorithm Detection and select the integration to see more details about it.\n- Follow the instructions under the **Installation** section.\n- For this rule to work, complete the instructions through **Configure the ingest pipeline**.\n",
+    "type": "query",
+    "language": "kuery",
+    "index": [
+      "logs-endpoint.events.*",
+      "logs-network_traffic.*"
+    ],
+    "query": "ml_is_dga.malicious_prediction:1 and dns.question.registered_domain:avsvmcloud.com\n",
+    "actions": []
   }
 ]
