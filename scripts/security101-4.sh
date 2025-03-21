@@ -2898,6 +2898,9 @@ sleep 2
 # Clear the screen
 clear
 
+echo "Loading Elastic Rules"
+curl -X PUT "http://localhost:30001/api/detection_engine/rules/prepackaged" -u "sdg:changme"  --header "kbn-xsrf: true" -H "Content-Type: application/json"  -d '{}'
+
 sudo apt update -y
 sudo apt install cowsay -y
 sudo apt install cmatrix -y
@@ -2960,7 +2963,7 @@ clear
 
 
 
-echo "You took the red pill, now we will see how far the rabbit hole goes."
+echo "Elastic Security is ready to start detecting malware."
 echo 
 echo
 echo 
