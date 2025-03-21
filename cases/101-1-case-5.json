@@ -1,0 +1,20 @@
+ {
+  "tags": [
+    "Scanning"
+  ],
+  "owner": "securitySolution",
+  "title": "Port Knocking on All of our Doors",
+  "severity": "low",
+  "settings": {
+    "syncAlerts": true
+  },
+  "connector": {
+    "id": "none",
+    "name": "none",
+    "type": ".none",
+    "fields": null
+  },
+  "description": "Observed an entire /24 walk up and down ports 1000-65536 looking for available services.",
+  "customFields": [
+  ]
+}
