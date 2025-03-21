@@ -6,7 +6,6 @@
   "owner": "securitySolution",
   "title": "Unauthorized CTO Credential Usage",
   "severity": "critical",
-  "status": "in-progress",
   "settings": {
     "syncAlerts": true
   },
