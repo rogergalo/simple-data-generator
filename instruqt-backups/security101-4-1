@@ -1,0 +1,82 @@
+# Objectives
+In this section, we will:
+- Enable Prebuilt SIEM rules
+- Initiate Attack discovery
+
+# Steps
+Lay the foundation and begin data ingestion
+===
+***NOTE: Do not skip this step; failure to do so will result in incomplete data being loaded.***
+
+We need to setup all of the necessary components in order to begin data ingestion.
+
+Please press '➧ run' when you're ready to begin:
+```run
+bash simple-data-generator/scripts/security101-4.sh
+```
+
+![Mar-07-2025_at_15.11.27-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/f7f522b3ecd7efc8d8544b114106092a/assets/Mar-07-2025_at_15.11.27-image.png)
+
+Once completed and running with the final text 'Workloads Started', navigate back to Kibana by clicking this button:  [button label="Kibana"](tab-1)
+
+NOTE:  The data generation application lists an ERROR StatusLogger, this is expected.
+
+Enable Elastic Rules
+===
+
+#Click Add Elastic rules
+#![Dec-17-2024_at_15.37.23-image.png](https://play.instruqt.com/assets/tracks/lmrkvwxgwoet/f2ec31eb39d752c13c06ce5d32f2f60a/assets/Dec-17-2024_at_15.37.23-image.png)
+
+Elastic provides a great library of rules to get you started and empowering you to focus on securing the enterprise.
+
+Take a moment to review some of the rules.  If you filtered your rules based on a tag, be sure to disable the tag before proceeding or if you should search for anything be sure to remove it.
+
+![Jan-16-2025_at_09.31.48-image.png](https://play.instruqt.com/assets/tracks/bx7gsfzjxsot/7c618ee0e3ddc3234d6ae0796f19d139/assets/Jan-16-2025_at_09.31.48-image.png)
+
+Search for "**Potential Remote Desktop Shadowing Activity**" then click the three dots to the right of the word Install to **Install and Enable** the rule
+<pre><code>Potential Remote Desktop Shadowing Activity</code></pre>
+
+![Jan-16-2025_at_09.35.39-image.png](https://play.instruqt.com/assets/tracks/bx7gsfzjxsot/b24323baff637c435660e03071a490ef/assets/Jan-16-2025_at_09.35.39-image.png)
+
+Wait for the rule to clear below your search bar before continuting to the next rule.
+![Mar-07-2025_at_15.12.42-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/6cb7682bf4b89f8fa8cee8c52280ecb6/assets/Mar-07-2025_at_15.12.42-image.png)
+
+Search for "Machine Learning Detected DGA activity using a known SUNBURST DNS" then click **Install and enable**
+<pre><code>Machine Learning Detected DGA activity using a known SUNBURST DNS</code></pre>
+
+![Jan-16-2025_at_09.54.59-image.png](https://play.instruqt.com/assets/tracks/bx7gsfzjxsot/688cf4bec4b3e23a2d37685504425fb9/assets/Jan-16-2025_at_09.54.59-image.png)
+
+Again, wait for the rule to clear below your search bar before continuting to the next rule.
+![Mar-07-2025_at_15.13.46-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/3f595706f60c98bd1610e3452cff22c9/assets/Mar-07-2025_at_15.13.46-image.png)
+
+Click on Alerts on the left-hand side.
+![Dec-17-2024_at_15.38.41-image.png](https://play.instruqt.com/assets/tracks/lmrkvwxgwoet/d9623188fbc49a05277b9a4b83214e63/assets/Dec-17-2024_at_15.38.41-image.png)
+
+You will now see several alerts for the rules we just enabled. If you do not see any alerts, please press the Refresh button directly above the Manage rules button in the top right hand corner.
+(Your rule count may vary from the image below.)
+![Mar-07-2025_at_14.56.28-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/ae21526dbb9291d528c7473a6190a075/assets/Mar-07-2025_at_14.56.28-image.png)
+
+
+Attack Discovery
+===
+
+Click on Attack discovery on the left-hand side.
+![Mar-07-2025_at_15.01.49-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/d2f12c32d53d78cd51bb02c6345606f8/assets/Mar-07-2025_at_15.01.49-image.png)
+
+Click **Generate** in the center of your screen.
+![Mar-07-2025_at_15.14.49-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/f16de89fc8634e4cc0e1352531ab25d4/assets/Mar-07-2025_at_15.14.49-image.png)
+
+While we could incorporate our internal processes or standard operating procedures, as well as configure our AI connector, it is not necessary for today's session; please click Close tour to continue:
+![Mar-14-2025_at_12.18.07-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/12f12ce96db219e1b7624b7be3a360a4/assets/Mar-14-2025_at_12.18.07-image.png)
+
+In a few moments, Attack discovery will describe the attack not just the alerts.
+![Mar-07-2025_at_15.15.52-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/09042ce0b20b3e13424769862146e388/assets/Mar-07-2025_at_15.15.52-image.png)
+
+Your discoveries may vary, in the example below two were generated.
+![Mar-07-2025_at_15.18.28-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/abe76a043113aa8b6e526df74a4882e5/assets/Mar-07-2025_at_15.18.28-image.png)
+
+You may collapse the top discovery to view the summary and details of the other below.
+![Mar-07-2025_at_15.20.12-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/fea26f26c4effaa60c5d9340cfe53a80/assets/Mar-07-2025_at_15.20.12-image.png)
+
+This is an example of a single discovery with both events.
+![Mar-14-2025_at_12.19.08-image.png](https://play.instruqt.com/assets/tracks/7fyh1bskgqmb/994d528cfe0d5da964a1368dff7f5334/assets/Mar-14-2025_at_12.19.08-image.png)
