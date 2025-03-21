@@ -2138,6 +2138,7 @@ curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-
 curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-2.json
 curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-3.json
 curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-4.json
+curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-5.json
 
 echo "Loading Elastic Rules"
 curl -X PUT "http://localhost:30001/api/detection_engine/rules/prepackaged" -u "sdg:changme"  --header "kbn-xsrf: true" -H "Content-Type: application/json"  -d '{}'
