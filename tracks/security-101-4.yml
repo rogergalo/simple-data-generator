@@ -4,7 +4,6 @@ elasticsearchPort: 30920
 elasticsearchUser: sdg
 elasticsearchPassword: changeme
 workloads:
-
   - workloadName: network-dns
     workloadThreads: 8
     workloadSleep: 10
