@@ -2136,6 +2136,8 @@ clear
 echo
 echo
 echo "Accessing SecOps archive, historical records loading..."
+echo
+echo
 sleep 2
 curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-1.json
 curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-2.json
