@@ -1,0 +1,329 @@
+elasticsearchScheme: http
+elasticsearchHost: localhost
+elasticsearchPort: 30920
+elasticsearchUser: sdg
+elasticsearchPassword: changeme
+workloads:
+
+  - workloadName: network-dns
+    workloadThreads: 8
+    workloadSleep: 10
+    indexName: logs-network_traffic.dns-default
+    fields:
+      - name: clientbytes
+        type: int
+        range: 0,16684
+
+      - name: serverbytes
+        type: int
+        range: 0,16684
+
+      - name: eventduration
+        type: int
+        range: 100000,5000000
+
+      - name: dnsoptudpsize
+        type: int
+        range: 0,62299
+
+      - name: datastreamdataset
+        type: random_string_from_list
+        custom_list: network_traffic.dns
+
+      - name: dnsquestionregistereddomain
+        type: domain
+
+      - name: dnsquestiontype
+        type: random_string_from_list
+        custom_list: AAAA,AAAA,AAAA,AAAA,AAAA,AAAA,AAAA,A,A,A,PTR,TXT,MX
+
+      - name: dnsanswertype
+        type: random_string_from_list
+        custom_list: A,A,CNAME
+
+      - name: mlisdgamaliciousprediction
+        type: random_string_from_list
+        custom_list: 0
+
+      - name: ripcodes
+        type: int
+        range: 1,251
+
+      - name: rip2
+        type: int
+        range: 0,255
+
+      - name: rip3
+        type: int
+        range: 0,255
+
+      - name: rip4
+        type: int
+        range: 0,255
+
+      - name: 2rip1
+        type: int
+        range: 10,10
+
+      - name: 2rip2
+        type: int
+        range: 10,10
+
+      - name: 2rip3
+        type: int
+        range: 10,10
+
+      - name: 2rip4
+        type: int
+        range: 0,5
+
+  - workloadName: network-dns-sunburst
+    workloadThreads: 1
+    workloadSleep: 100
+    indexName: logs-network_traffic.dns-default
+    fields:
+      - name: clientbytes
+        type: int
+        range: 0,16684
+
+      - name: serverbytes
+        type: int
+        range: 0,16684
+
+      - name: eventduration
+        type: int
+        range: 100000,5000000
+
+      - name: dnsoptudpsize
+        type: int
+        range: 0,62299
+
+      - name: datastreamdataset
+        type: random_string_from_list
+        custom_list: network_traffic.dns
+
+      - name: dnsquestionregistereddomain
+        type: domain
+
+      - name: dnsquestiontype
+        type: random_string_from_list
+        custom_list: AAAA,AAAA,AAAA,AAAA,AAAA,AAAA,AAAA,A,A,A,PTR,TXT,MX
+
+      - name: dnsanswertype
+        type: random_string_from_list
+        custom_list: A,A,CNAME
+
+      - name: mlisdgamaliciousprediction
+        type: random_string_from_list
+        custom_list: 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+
+      - name: ripcodes
+        type: int
+        range: 1,251
+
+      - name: rip2
+        type: int
+        range: 0,255
+
+      - name: rip3
+        type: int
+        range: 0,255
+
+      - name: rip4
+        type: int
+        range: 0,255
+
+      - name: 2rip1
+        type: int
+        range: 10,10
+
+      - name: 2rip2
+        type: int
+        range: 10,10
+
+      - name: 2rip3
+        type: int
+        range: 10,10
+
+      - name: 2rip4
+        type: int
+        range: 0,5
+
+  - workloadName: windows-system-security
+    workloadThreads: 4
+    workloadSleep: 10
+    indexName: winlogbeat-default
+    fields:
+      - name: eventcategory
+        type: random_string_from_list
+        custom_list: iam,iam,iam,iam,iam,iam,iam,authentication,authentication,authentication,process,configuration,process,configuration,driver,registry,registry
+
+      - name: wincode
+        type: int
+        range: 1,422
+
+      - name: processname
+        type: path
+
+      - name: parentprocessname
+        type: path
+
+      - name: eventtype
+        type: random_string_from_list
+        custom_list: access,admin,allowed,change,connection,creation,deletion,denied,end,error,group,indicator,info,installation,protocol,start,user
+
+      - name: 2rip1
+        type: int
+        range: 10,10
+
+      - name: 2rip2
+        type: int
+        range: 0,255
+
+      - name: 2rip3
+        type: int
+        range: 0,255
+
+      - name: 2rip4
+        type: int
+        range: 0,254
+
+      - name: processpename
+        type: path        
+
+      - name: processargs
+        type: appname
+
+      - name: registry1
+        type: appname
+
+      - name: registry2
+        type: appname     
+
+  - workloadName: nginx-access
+    workloadThreads: 4
+    workloadSleep: 10
+    indexName: logs-nginx.access
+    fields:
+      - name: ripcodes
+        type: int
+        range: 1,251
+
+      - name: rip2
+        type: int
+        range: 0,255
+
+      - name: rip3
+        type: int
+        range: 0,255
+
+      - name: rip4
+        type: int
+        range: 0,255
+
+      - name: nginxcode
+        type: int
+        range: 1,69
+
+      - name: uacode
+        type: int
+        range: 1,1035
+
+      - name: slowloris
+        type: int
+        range: 1,65536
+
+      - name: httpbodybytes
+        type: int
+        range: 0,622996
+
+      - name: datastreamdataset
+        type: random_string_from_list
+        custom_list: nginx.access
+
+  - workloadName: nginx-ddos
+    workloadThreads: 4
+    workloadSleep: 10
+    indexName: logs-nginx.access
+    fields:
+      - name: ripcodes
+        type: int
+        range: 1,251
+
+      - name: rip2
+        type: int
+        range: 0,255
+
+      - name: rip3
+        type: int
+        range: 0,255
+
+      - name: rip4
+        type: int
+        range: 0,255
+
+      - name: nginxcode
+        type: int
+        range: 69,69
+
+      - name: uacode
+        type: int
+        range: 1,1035
+
+      - name: slowloris
+        type: int
+        range: 1,65536
+
+      - name: httpbodybytes
+        type: int
+        range: 0,622996
+
+      - name: datastreamdataset
+        type: random_string_from_list
+        custom_list: nginx.access
+
+
+  - workloadName: nginx-error
+    workloadThreads: 1
+    workloadSleep: 1000
+    indexName: logs-nginx.error
+    fields:
+      - name: ripcodes
+        type: int
+        range: 1,251
+
+      - name: rip2
+        type: int
+        range: 0,255
+
+      - name: rip3
+        type: int
+        range: 0,255
+
+      - name: rip4
+        type: int
+        range: 0,255
+
+      - name: nginxcode
+        type: int
+        range: 1,69
+
+      - name: uacode
+        type: int
+        range: 1,1035
+
+      - name: slowloris
+        type: int
+        range: 1,1035024
+
+      - name: httpbodybytes
+        type: int
+        range: 0,622996
+
+      - name: loglevel
+        type: random_string_from_list
+        custom_list: error,error,error,error,error,error,info,crit,crit,crit,warn,warn
+
+      - name: datastreamdataset
+        type: random_string_from_list
+        custom_list: nginx.error        
