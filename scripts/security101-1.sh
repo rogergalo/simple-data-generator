@@ -2134,6 +2134,28 @@ sleep 2
 # Clear the screen
 clear
 
+# Clear the screen
+clear
+echo
+echo
+echo "Accessing SecOps archive, historical records loading..."
+echo
+echo
+sleep 2
+curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-1.json
+curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-2.json
+curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-3.json
+curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-4.json
+curl -X POST "http://localhost:30001/api/cases" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/cases/101-1-case-5.json
+clear
+ 
+echo "Loading Elastic Rules"
+echo
+echo
+curl -X PUT "http://localhost:30001/api/detection_engine/rules/prepackaged" -u "sdg:changme"  --header "kbn-xsrf: true" -H "Content-Type: application/json"  -d '{}'
+curl -X POST "http://localhost:30001/api/detection_engine/rules/_bulk_create" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/detection-rules/101-1.json
+
+
 sudo apt update -y
 sudo apt install cowsay -y
 sudo apt install cmatrix -y
@@ -2196,7 +2218,7 @@ clear
 
 
 
-echo "You took the red pill, now we will see how far the rabbit hole goes."
+echo "Elastic Security says: FEED ME MALWARE!!!"
 echo 
 echo
 echo 
