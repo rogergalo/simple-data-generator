@@ -2965,7 +2965,7 @@ clear
 
 
 
-echo "You took the red pill, now we will see how far the rabbit hole goes."
+echo "Elastic Security says: Feed me malware!!!"
 echo 
 echo
 echo 
