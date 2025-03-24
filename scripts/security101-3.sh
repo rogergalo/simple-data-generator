@@ -2897,6 +2897,11 @@ sleep 2
 
 # Clear the screen
 clear
+echo 
+echo "Loading Elastic Rules, this will take a moment."
+echo
+echo
+curl -X PUT "http://localhost:30001/api/detection_engine/rules/prepackaged" -u "sdg:changme"  --header "kbn-xsrf: true" -H "Content-Type: application/json"  -d '{}'
 
 sudo apt update -y
 sudo apt install cowsay -y
