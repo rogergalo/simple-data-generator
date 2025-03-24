@@ -2902,6 +2902,8 @@ echo "Loading Elastic Rules, this will take a moment."
 echo
 echo
 curl -X PUT "http://localhost:30001/api/detection_engine/rules/prepackaged" -u "sdg:changme"  --header "kbn-xsrf: true" -H "Content-Type: application/json"  -d '{}'
+curl -X POST "http://localhost:30001/api/detection_engine/rules/_bulk_create" -u "sdg:changeme" --header "kbn-xsrf: true" -H "Content-Type: application/json" -d @/root/simple-data-generator/detection-rules/101-1.json
+
 
 sudo apt update -y
 sudo apt install cowsay -y
