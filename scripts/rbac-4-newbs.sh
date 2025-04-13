@@ -2887,16 +2887,18 @@ curl -X PUT "http://localhost:30920/_index_template/abusech" -H "Content-Type: a
 }
 EOF
 
-curl -X POST "http://localhost:30001/api/data_views/data_view" -H "Content-Type: application/json" -u "sdg:changeme" -d @- << 'EOF'
-{
-  "data_view": {
-    "name": "winlogbeat-*",
-    "title": "winlogbeat-*",
-    "timeFieldName": "@timestamp"
-    }
-  }
-}
-EOF
+clear
+
+echo
+echo "Creating Data Views"
+echo
+
+curl -X POST http://localhost:30001/api/saved_objects/index-pattern -H "kbn-xsrf: true" -H "Content-Type: application/json" -u "sdg:changeme" -d '{ "attributes": { "title": "winlogbeat-*", "timeFieldName": "@timestamp", "name": "Windows" } }'
+curl -X POST http://localhost:30001/api/saved_objects/index-pattern -H "kbn-xsrf: true" -H "Content-Type: application/json" -u "sdg:changeme" -d '{ "attributes": { "title": "logs-bluecoat.proxy*", "timeFieldName": "@timestamp", "name": "Bluecoat" } }'
+curl -X POST http://localhost:30001/api/saved_objects/index-pattern -H "kbn-xsrf: true" -H "Content-Type: application/json" -u "sdg:changeme" -d '{ "attributes": { "title": "logs-nginx*", "timeFieldName": "@timestamp", "name": "Nginx" } }'
+curl -X POST http://localhost:30001/api/saved_objects/index-pattern -H "kbn-xsrf: true" -H "Content-Type: application/json" -u "sdg:changeme" -d '{ "attributes": { "title": "logs-email*", "timeFieldName": "@timestamp", "name": "Email" } }'
+curl -X POST http://localhost:30001/api/saved_objects/index-pattern -H "kbn-xsrf: true" -H "Content-Type: application/json" -u "sdg:changeme" -d '{ "attributes": { "title": "logs-network*", "timeFieldName": "@timestamp", "name": "Network" } }'
+
 
 # Clear the screen
 clear
