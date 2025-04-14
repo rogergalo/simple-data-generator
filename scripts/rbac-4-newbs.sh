@@ -2970,9 +2970,22 @@ kill $MATRIX_PID
 tput cnorm
 clear
 
-
-
-
+echo "Updating Kibana"
+echo
+echo
+sed -i '23,25 s/^/#/' /etc/nginx/conf.d/default.conf
+echo
+echo
+echo
+echo "Restarting Kibana"
+echo 
+systemctl restart nginx
+echo
+echo
+echo "Kibana restarted!"
+echo
+echo
+echo
 echo "Feed me data!!!"
 echo 
 echo
