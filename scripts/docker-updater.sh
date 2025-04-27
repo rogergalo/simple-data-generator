@@ -52,7 +52,7 @@ INSERT INTO orders (
 ) VALUES
 ('2025-04-01', '2025-04-03', '2025-04-06', 'Alice', 'Smith', '123 Maple St', 'Springfield', 'IL', '62704', 'USA','Wireless Mouse', 'WM123', 25.99, 5.00, 'Main Warehouse', '1000 Warehouse Rd', 'Chicago', '60601', 'USA', TRUE),
 ('2025-04-02', '2025-04-04', '2025-04-08', 'Bob', 'Johnson', '456 Oak St', 'Lincoln', 'NE', '68508', 'USA','Mechanical Keyboard', 'MK456', 75.49, 7.50, 'North Hub', '2000 Distribution Ln', 'Omaha', '68102', 'USA', FALSE),
-('2025-04-03', '2025-04-05', '2025-04-07', 'Carla', 'Lopez', '789 Pine St', 'Denver', 'CO', '80203', 'USA','USB-C Cable', 'UC789', 12.00, 3.00, 'West Shipping', '3000 Logistics Ave', 'Boulder', '80301', 'USA', TRUE)
+('2025-04-03', '2025-04-05', '2025-04-07', 'Carla', 'Lopez', '789 Pine St', 'Denver', 'CO', '80203', 'USA','USB-C Cable', 'UC789', 12.00, 3.00, 'West Shipping', '3000 Logistics Ave', 'Boulder', '80301', 'USA', TRUE),
 ('2025-04-09', '2025-04-10', '2025-04-14', 'Megan', 'Webb', '407 Fischer Curve Apt. 130', 'Port Elizabethton', 'MT', '73712', 'USA', 'USB Hub', 'UH333', 15.75, 4.56, 'North Hub', '2000 Distribution Ln', 'Omaha', '68102', 'USA', FALSE),
 ('2025-03-23', '2025-03-26', '2025-03-29', 'Sarah', 'Nelson', '6152 Hamilton Crescent', 'East Heidi', 'ME', '60776', 'USA', 'USB Hub', 'UH333', 15.75, 5.09, 'West Shipping', '3000 Logistics Ave', 'Boulder', '80301', 'USA', TRUE),
 ('2025-02-11', '2025-02-13', '2025-02-17', 'Ann', 'Evans', '0931 Morris Hills Apt. 462', 'Wilsonstad', 'NV', '2607', 'USA', 'Monitor 24"', 'M24HD', 149.99, 9.11, 'North Hub', '2000 Distribution Ln', 'Omaha', '68102', 'USA', TRUE),
