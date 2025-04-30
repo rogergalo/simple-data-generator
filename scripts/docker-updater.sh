@@ -10,11 +10,11 @@ MYSQL_USER="myuser"
 MYSQL_PASSWORD="mypassword"
 MYSQL_PORT=3306
 INIT_SQL_FILE="init_online_orders.sql"
+LOG_DIR="./mysql-logs"
 
 # Create SQL file to initialize the schema and populate data
 cat > $INIT_SQL_FILE <<EOF
 CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\`;
-
 USE \`$MYSQL_DATABASE\`;
 
 CREATE TABLE IF NOT EXISTS orders (
@@ -1057,6 +1057,22 @@ INSERT INTO orders (
  
 EOF
 
+# Create a custom my.cnf to enable MySQL logs
+mkdir -p $LOG_DIR/conf
+cat > $LOG_DIR/conf/my.cnf <<EOF
+[mysqld]
+general_log = 1
+general_log_file = /var/log/mysql/general.log
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow.log
+log_error = /var/log/mysql/error.log
+long_query_time = 1
+EOF
+
+# Ensure host log directory exists for container to write to
+mkdir -p $LOG_DIR/data
+mkdir -p $LOG_DIR/logs
+
 # Clean up old container
 if [ "$(docker ps -aq -f name=$MYSQL_CONTAINER_NAME)" ]; then
     echo "Container $MYSQL_CONTAINER_NAME already exists. Removing it..."
@@ -1071,9 +1087,12 @@ docker run -d \
   -e MYSQL_USER=$MYSQL_USER \
   -e MYSQL_PASSWORD=$MYSQL_PASSWORD \
   -v "$(pwd)/$INIT_SQL_FILE":/docker-entrypoint-initdb.d/$INIT_SQL_FILE \
+  -v "$(pwd)/$LOG_DIR/conf/my.cnf":/etc/mysql/conf.d/custom.cnf:ro \
+  -v "$(pwd)/$LOG_DIR/logs":/var/log/mysql \
   -p $MYSQL_PORT:3306 \
   mysql:8.0
 
 echo "✅ MySQL container '$MYSQL_CONTAINER_NAME' is up."
+echo "🗂 Logs available on host at: $(pwd)/$LOG_DIR/logs"
 echo "🗃  Database 'online_orders' and table 'orders' initialized with sample data."
 echo "📍 Access it at: localhost:$MYSQL_PORT"
