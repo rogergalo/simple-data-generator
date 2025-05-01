@@ -1,50 +1,56 @@
 #!/bin/bash
-
 set -e
 
-# Ensure we are root
+# Ensure root
 if [ "$EUID" -ne 0 ]; then
   echo "Please run as root or with sudo."
   exit 1
 fi
 
+export DEBIAN_FRONTEND=noninteractive
+
 # Install prerequisites
-apt update
-apt install -y curl gnupg lsb-release wget software-properties-common
+apt-get update
+apt-get install -y curl gnupg lsb-release wget software-properties-common jq \
+  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 
-# Add osquery GPG key and repo
+# Add osquery GPG key and repository
 OSQUERY_KEY_URL="https://pkg.osquery.io/deb/pubkey.gpg"
-OSQUERY_REPO="deb [signed-by=/usr/share/keyrings/osquery-archive-keyring.gpg] https://pkg.osquery.io/deb deb main"
-
 curl -fsSL "$OSQUERY_KEY_URL" | gpg --dearmor -o /usr/share/keyrings/osquery-archive-keyring.gpg
-echo "$OSQUERY_REPO" | tee /etc/apt/sources.list.d/osquery.list
+
+echo "deb [signed-by=/usr/share/keyrings/osquery-archive-keyring.gpg] https://pkg.osquery.io/deb deb main" \
+  > /etc/apt/sources.list.d/osquery.list
 
 # Install osquery
-apt update
-apt install -y osquery jq
+apt-get update
+apt-get install -y osquery \
+  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 
-# Prepare osquery config and enable all packs
+# Create configuration directory
 mkdir -p /etc/osquery
-cp /usr/share/osquery/osquery.example.conf /etc/osquery/osquery.conf
-
-PACKS_DIR="/usr/share/osquery/packs"
 CONFIG_FILE="/etc/osquery/osquery.conf"
+PACKS_DIR="/etc/osquery/packs"
 
-# Remove old packs section
-sed -i '/"packs": {/,/},/d' "$CONFIG_FILE"
+# Download config from a stable tag (osquery 5.11.0)
+curl -fsSL https://raw.githubusercontent.com/osquery/osquery/5.11.0/tools/deployment/osquery.example.conf -o "$CONFIG_FILE"
 
-# Dynamically enable all packs
+# Download all packs from same version
+mkdir -p "$PACKS_DIR"
+curl -sL https://github.com/osquery/osquery/archive/refs/tags/5.11.0.tar.gz | \
+  tar -xz --strip-components=2 -C "$PACKS_DIR" osquery-5.11.0/packs
+
+# Inject all packs into config
 PACKS_JSON=$(jq -n '{packs: {} }')
 for pack_file in "$PACKS_DIR"/*.conf; do
   pack_name=$(basename "$pack_file" .conf)
   PACKS_JSON=$(echo "$PACKS_JSON" | jq --arg name "$pack_name" --arg path "$pack_file" '.packs[$name] = $path')
 done
 
-# Merge with existing config
 jq --argjson packs "$(echo "$PACKS_JSON" | jq '.packs')" '. + {packs: $packs}' "$CONFIG_FILE" > "$CONFIG_FILE.tmp" && mv "$CONFIG_FILE.tmp" "$CONFIG_FILE"
 
-# Enable and start osquery
+# Start osquery service
+systemctl daemon-reexec
 systemctl enable osqueryd
-systemctl start osqueryd
+systemctl restart osqueryd
 
-echo "✅ Osquery installed and all packs enabled on Ubuntu 24.04."
+echo "✅ Osquery installed and fully configured with default packs (v5.11.0)."
