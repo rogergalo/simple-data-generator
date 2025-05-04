@@ -13,3 +13,6 @@ bash simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/osquery-s
 
 # Kick off mysql-docker-deploy.sh
 bash simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/mysql-docker-deploy.sh
+
+# Kick off syslog-sending.sh
+bash simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/syslog-sending.sh
