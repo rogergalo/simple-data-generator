@@ -48,6 +48,10 @@ done
 
 jq --argjson packs "$(echo "$PACKS_JSON" | jq '.packs')" '. + {packs: $packs}' "$CONFIG_FILE" > "$CONFIG_FILE.tmp" && mv "$CONFIG_FILE.tmp" "$CONFIG_FILE"
 
+# Update your /etc/hosts while we're at it
+
+bash /simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/update-etc_hosts.sh
+
 # Start osquery service
 systemctl daemon-reexec
 systemctl enable osqueryd
