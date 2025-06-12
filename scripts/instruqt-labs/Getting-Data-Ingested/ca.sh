@@ -17,7 +17,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Moving cert to $DEST_CERT and updating CA store on $DEST_HOST ..."
-ssh "$DEST_HOST1" "sudo mv /tmp/ca.crt $DEST_CERT && sudo update-ca-certificates"
+ssh -o StrictHostKeyChecking=accept-new "$DEST_HOST1" "sudo mv /tmp/ca.crt $DEST_CERT && sudo update-ca-certificates"
 
 if [ $? -eq 0 ]; then
     echo "Certificate installed and CA store updated on $DEST_HOST1."
@@ -36,7 +36,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Moving cert to $DEST_CERT and updating CA store on $DEST_HOST2 ..."
-ssh "$DEST_HOST2" "sudo mv /tmp/ca.crt $DEST_CERT && sudo update-ca-certificates"
+ssh -o StrictHostKeyChecking=accept-new "$DEST_HOST2" "sudo mv /tmp/ca.crt $DEST_CERT && sudo update-ca-certificates"
 
 if [ $? -eq 0 ]; then
     echo "Certificate installed and CA store updated on $DEST_HOST2."
@@ -55,7 +55,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Moving cert to $DEST_CERT and updating CA store on $DEST_HOST3 ..."
-ssh "$DEST_HOST3" "sudo mv /tmp/ca.crt $DEST_CERT && sudo update-ca-certificates"
+ssh -o StrictHostKeyChecking=accept-new "$DEST_HOST3" "sudo mv /tmp/ca.crt $DEST_CERT && sudo update-ca-certificates"
 
 if [ $? -eq 0 ]; then
     echo "Certificate installed and CA store updated on $DEST_HOST3."
