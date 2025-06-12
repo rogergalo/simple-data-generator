@@ -50,7 +50,7 @@ jq --argjson packs "$(echo "$PACKS_JSON" | jq '.packs')" '. + {packs: $packs}' "
 
 # Update your /etc/hosts while we're at it
 
-bash /simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/update-etc_hosts.sh
+bash simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/update-etc_hosts.sh
 
 # Start osquery service
 systemctl daemon-reexec
