@@ -10,7 +10,7 @@ DEST_HOST3="syslog-aggregator"
 # HOST 1
 
 echo "Copying $SRC_CERT to $DEST_HOST1:$DEST_CERT ..."
-scp "$SRC_CERT" "$DEST_HOST1:/tmp/ca.crt"
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$SRC_CERT" "$DEST_HOST1:/tmp/ca.crt"
 if [ $? -ne 0 ]; then
     echo "SCP failed! Exiting."
     exit 1
@@ -29,7 +29,7 @@ fi
 # HOST2
 
 echo "Copying $SRC_CERT to $DEST_HOST2:$DEST_CERT ..."
-scp "$SRC_CERT" "$DEST_HOST2:/tmp/ca.crt"
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$SRC_CERT" "$DEST_HOST2:/tmp/ca.crt"
 if [ $? -ne 0 ]; then
     echo "SCP failed! Exiting."
     exit 1
@@ -48,7 +48,7 @@ fi
 # HOST 3
 
 echo "Copying $SRC_CERT to $DEST_HOST3:$DEST_CERT ..."
-scp "$SRC_CERT" "$DEST_HOST3:/tmp/ca.crt"
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$SRC_CERT" "$DEST_HOST3:/tmp/ca.crt"
 if [ $? -ne 0 ]; then
     echo "SCP failed! Exiting."
     exit 1
