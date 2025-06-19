@@ -10,6 +10,14 @@ fi
 echo "Allowing UDP traffic on port 514..."
 sudo ufw allow 514/udp
 
+# Allow TCP and UDP traffic on ports 15778 and 15779
+for port in 15778 15779; do
+  echo "Allowing TCP traffic on port $port..."
+  sudo ufw allow ${port}/tcp
+  echo "Allowing UDP traffic on port $port..."
+  sudo ufw allow ${port}/udp
+done
+
 # Enable UFW if not already enabled
 if sudo ufw status | grep -q "Status: inactive"; then
   echo "Enabling ufw firewall..."
@@ -19,7 +27,6 @@ fi
 # Show the updated firewall rules
 echo "Updated UFW rules:"
 sudo ufw status verbose
-
 
 # Path for the rsyslog configuration
 CONFIG_FILE="/etc/rsyslog.d/syslog.conf"
