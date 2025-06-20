@@ -11,9 +11,6 @@ fi
 sudo snap install nano --classic
 export USER=$(whoami)
 
-# Kick off update-etc_hosts.sh
-bash simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/update-etc_hosts.sh
-
 # Kick off osquery-setup.sh
 bash simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/osquery-setup.sh
 
@@ -22,3 +19,6 @@ bash simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/mysql-doc
 
 # Kick off syslog-sending.sh
 bash simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/syslog-sending.sh
+
+# Kick off install-fim-chaos.sh
+bash simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/install-fim-chaos.sh
