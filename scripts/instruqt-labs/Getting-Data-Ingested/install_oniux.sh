@@ -1,9 +1,17 @@
 #!/bin/bash
 set -e
 
-# Install build tools (gcc, make, etc.)
+# Install build tools and a new GCC
 sudo apt-get update
-sudo apt-get install -y build-essential pkg-config libssl-dev
+sudo apt-get install -y build-essential pkg-config libssl-dev gcc-12 g++-12
+
+# Set gcc-12 as default
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 100
+
+# Optionally, auto-select gcc-12
+sudo update-alternatives --set gcc /usr/bin/gcc-12
+sudo update-alternatives --set g++ /usr/bin/g++-12
 
 # Install Rust non-interactively (auto-accept default)
 curl https://sh.rustup.rs -sSf | sh -s -- -y
