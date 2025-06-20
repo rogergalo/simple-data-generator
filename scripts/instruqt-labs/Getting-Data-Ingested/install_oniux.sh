@@ -1,13 +1,15 @@
 #!/bin/bash
 set -e
 
-# Update package list
+# Install build tools (gcc, make, etc.)
 sudo apt-get update
+sudo apt-get install -y build-essential pkg-config libssl-dev
 
-# Install build dependencies
-sudo apt-get install -y build-essential pkg-config libssl-dev git curl rustc 
+# Install Rust non-interactively (auto-accept default)
+curl https://sh.rustup.rs -sSf | sh -s -- -y
 
-# Install Oniux from the specified git repo and tag
+# Source cargo (add Rust to path for this session)
+source "$HOME/.cargo/env"
+
+# Install Oniux from Gitlab at specific tag
 cargo install --git https://gitlab.torproject.org/tpo/core/oniux --tag v0.4.0 oniux
-
-echo "Oniux installed successfully!"
