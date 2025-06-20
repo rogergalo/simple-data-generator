@@ -21,3 +21,6 @@ source "$HOME/.cargo/env"
 
 # Install Oniux from Gitlab at specific tag
 cargo install --git https://gitlab.torproject.org/tpo/core/oniux --tag v0.4.0 oniux
+
+# Make oniux executable anywhere
+sudo cp ~/.cargo/bin/oniux /usr/local/bin/
