@@ -5,8 +5,8 @@ elasticsearchUser: sdg
 elasticsearchPassword: changeme
 workloads:
   - workloadName: windows-system-security
-    workloadThreads: 1
-    workloadSleep: 10
+    workloadThreads: 4
+    workloadSleep: 5
     indexName: winlogbeat-default
     fields:
       - name: eventcategory
