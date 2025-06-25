@@ -8,7 +8,7 @@ get_token() {
         read -rp "Is this correct? (yes/no): " CONFIRM
         case "$CONFIRM" in
             [Yy][Ee][Ss]|[Yy]) break ;;
-            *) echo "Let's try again."; continue ;;
+            *) echo "Let's try again." ;;
         esac
     done
 }
@@ -16,7 +16,7 @@ get_token() {
 # Get the enrollment token from user
 get_token
 
-# Create the docker network 'elastic' if it doesn't exist
+# Create the Docker network 'elastic' if it doesn't exist
 if ! docker network ls | grep -q ' elastic '; then
     echo "Creating Docker network 'elastic'..."
     docker network create elastic
@@ -26,13 +26,17 @@ fi
 
 # Run the Elastic Agent Synthetics container
 echo "Starting Elastic-Agent-Synthetics container..."
-sudo docker run  -d \
+sudo docker run -d \
     --restart=always \
     --name Elastic-Agent-Synthetics \
     --network elastic \
     --env FLEET_ENROLL=1 \
     --env FLEET_URL=https://fleet-server-agent-http.default.svc:8220 \
     --env FLEET_ENROLLMENT_TOKEN="$ENROLLMENT_TOKEN" \
+    --env KIBANA_HOST=https://fleet-server-agent-http.default.svc:30002 \
+    --env KIBANA_FLEET_SETUP=1 \
+    --env FLEET_INSECURE=true \
+    -v /usr/local/share/ca-certificates/ca.crt:/usr/share/elastic-agent/certs/ca.crt:ro \
     docker.elastic.co/elastic-agent/elastic-agent-complete:8.18.1
 
 cat <<EOF
@@ -41,20 +45,25 @@ cat <<EOF
 Elastic Agent (Synthetics) Docker Container Installation Complete!
 ====================================================================
 
-You have just installed the Elastic Agent using the 'elastic-agent-complete:8.18.1' Docker image.
-This containerized agent allows you to run **synthetic browser monitors** directly on your host.
+You have just installed the Elastic Agent using the 
+'docker.elastic.co/elastic-agent/elastic-agent-complete:8.18.1' image.
 
-Details of what was done:
-- The **enrollment token** you provided was used to securely register your agent with Fleet.
-- The Docker network **'elastic'** was created (if it did not already exist) to allow the agent to communicate with other Elastic stack containers.
-- The container was given the name **Elastic-Agent-Synthetics** for easy identification.
-- The **--restart=always** option ensures your agent container will **restart automatically** if your machine reboots or if the container crashes, keeping your monitoring consistent.
-- The Elastic Agent connects to **https://fleet-server-agent-http.default.svc:8220**, so make sure your Fleet Server is running and accessible at that address.
+✅ This version supports **synthetic browser monitoring** directly from your host.
 
-You can check the agent’s status with:
+🔧 What this script did:
+- Prompted you for the **Fleet enrollment token**, which securely connects the agent to Kibana and Fleet.
+- Ensured the **Docker network 'elastic'** exists so the container can communicate with other services like Fleet Server.
+- Started the container with:
+  - **Automatic restart** on failure or system reboot
+  - **TLS support** via a mounted certificate at \`/usr/share/elastic-agent/certs/ca.crt\`
+  - **Fleet Server URL**: https://fleet-server-agent-http.default.svc:8220
+  - **Kibana URL**: https://fleet-server-agent-http.default.svc:30002
+  - \`FLEET_INSECURE=true\` to allow enrollment with a self-signed cert
+
+🔎 To check agent status:
   docker logs -f Elastic-Agent-Synthetics
 
-To remove the agent:
+🧼 To stop and remove the container:
   docker rm -f Elastic-Agent-Synthetics
 
 ====================================================================
@@ -63,4 +72,3 @@ EOF
 
 # Wait for user confirmation before exiting, but leave the info on screen
 read -rp "Press ENTER to finish and leave this information visible on your screen..."
-
