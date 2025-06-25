@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt update -y && sudo apt install iputils-ping -y
+sudo apt install iputils-ping -y
 
 
 # Configuration
