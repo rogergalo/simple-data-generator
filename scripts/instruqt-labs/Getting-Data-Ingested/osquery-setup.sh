@@ -10,9 +10,7 @@ fi
 export DEBIAN_FRONTEND=noninteractive
 
 # Install prerequisites
-apt-get update
-apt-get install -y curl gnupg lsb-release wget software-properties-common jq \
-  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+apt-get update && apt-get install -y curl gnupg lsb-release wget software-properties-common jq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 
 # Add osquery GPG key and repository
 OSQUERY_KEY_URL="https://pkg.osquery.io/deb/pubkey.gpg"
@@ -22,9 +20,7 @@ echo "deb [signed-by=/usr/share/keyrings/osquery-archive-keyring.gpg] https://pk
   > /etc/apt/sources.list.d/osquery.list
 
 # Install osquery
-apt-get update
-apt-get install -y osquery \
-  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+apt-get update && apt-get install -y osquery -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 
 # Create configuration directory
 mkdir -p /etc/osquery
