@@ -8,8 +8,8 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Install nano via snap
-sudo snap install nano --classic
-export USER=$(whoami)
+#sudo snap install nano --classic
+#export USER=$(whoami)
 
 # Kick off osquery-setup.sh
 bash simple-data-generator/scripts/instruqt-labs/Getting-Data-Ingested/osquery-setup.sh
