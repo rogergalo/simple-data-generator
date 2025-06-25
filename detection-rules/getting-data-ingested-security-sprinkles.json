@@ -9,7 +9,7 @@
       "Data Source: Elastic Defend",
       "Resources: Investigation Guide"
     ],
-    "interval": "5m",
+    "interval": "1m",
     "enabled": true,
     "revision": 1,
     "description": "This rule detects the installation of a Debian package (dpkg) by an unusual parent process. The dpkg command is used to install, remove, and manage Debian packages on a Linux system. Attackers can abuse the dpkg command to install malicious packages on a system.",
