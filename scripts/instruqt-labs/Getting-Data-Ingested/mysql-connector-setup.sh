@@ -1,8 +1,21 @@
 #!/bin/bash
 
-# Prompt for Connector ID and API Key
-read -rp "Enter Connector ID: " connId
-read -rp "Enter API Key: " apiKey
+# Confirmation loop for Connector ID and API Key
+while true; do
+    read -rp "Enter Connector ID: " connId
+    read -rp "Enter API Key: " apiKey
+
+    echo
+    echo "You entered:"
+    echo "  Connector ID: $connId"
+    echo "  API Key:      $apiKey"
+    read -rp "Are these correct? [y/n]: " confirm
+
+    case "$confirm" in
+        [Yy]* ) break;;
+        * ) echo "Let's try again."; echo;;
+    esac
+done
 
 # Set config file path
 CONFIG_FILE="$HOME/root/config-mysql.yml"
