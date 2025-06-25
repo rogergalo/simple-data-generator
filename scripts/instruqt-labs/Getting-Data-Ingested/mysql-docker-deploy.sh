@@ -3,7 +3,7 @@ sudo apt update -y && sudo apt install iputils-ping -y
 
 
 # Configuration
-MYSQL_CONTAINER_NAME="my-mysql"
+MYSQL_CONTAINER_NAME="mysqldb"
 MYSQL_ROOT_PASSWORD="rootpass"
 MYSQL_DATABASE="online_orders"
 MYSQL_USER="myuser"
