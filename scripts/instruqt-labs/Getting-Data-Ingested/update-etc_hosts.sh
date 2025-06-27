@@ -1,5 +1,22 @@
 #!/bin/bash
 
+wait_for_dpkg_lock() {
+  local max_attempts=30
+  local attempt=0
+  while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
+    pid=$(fuser /var/lib/dpkg/lock-frontend 2>/dev/null)
+    echo "Waiting for dpkg lock to be released (held by PID $pid)..."
+    attempt=$((attempt+1))
+    if [ "$attempt" -ge "$max_attempts" ]; then
+      echo "Lock held too long. Killing PID $pid..."
+      kill -9 "$pid"
+      break
+    fi
+    sleep 2
+  done
+}
+
+
 # Get the IP address of kubernetes-vm
 IP=$(getent hosts kubernetes-vm | awk '{ print $1 }')
 
