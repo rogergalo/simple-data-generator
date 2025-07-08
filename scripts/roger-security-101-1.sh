@@ -2126,4 +2126,4 @@ curl -X PUT "http://localhost:30920/_index_template/logs-network_traffic.dns" -H
 EOF
 
 
-java -jar /root/simple-data-generator/build/libs/simple-data-generator-1.0.0-SNAPSHOT.jar /root/simple-data-generator/tracks/security-101-1.yml
+java -jar /root/simple-data-generator/build/libs/simple-data-generator-1.0.0-SNAPSHOT.jar /root/simple-data-generator/secops-windows.yml
